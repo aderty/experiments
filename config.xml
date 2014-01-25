@@ -24,10 +24,10 @@
         id        = "com.appytek.cahierdevie"
         versionCode="10"
         version   = "1.0.0">
-  <name>Cahier de vie</name>
+  <name>Experiments</name>
 
   <description>
-    Cahier de vie d'un enfant chez sa nourrice.
+    Expériementations
   </description>
 
   <author href="http://www.appytek.com/" email="support@phonegap.com">

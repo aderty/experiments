@@ -1,0 +1,19 @@
+.nodester.appconfig
+bin/
+obj/
+My Project/
+sql/
+build/
+*.json
+!package.json
+*.sln
+*.suo
+*.vbproj
+*.vbproj.user
+*.vb
+*.bat
+*.rdb
+Web.config
+Web.Debug.config
+Web.Release.config
+UpgradeLog.XML
