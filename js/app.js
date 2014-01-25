@@ -7,7 +7,7 @@ function jsonp_callback(data) {
 
 
 // Declare app level module which depends on filters, and services
-var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'ajoslin.mobile-navigate', 'ngRoute', 'ngTouch', 'ngTouch.hold', 'snap'])
+var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','ionic', 'ngRoute', 'ngAnimate', 'ngTouch'])
     .config(function ($compileProvider, $httpProvider) {
         //$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
@@ -17,7 +17,19 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $httpProvider.interceptors.push('myHttpInterceptor');
     })
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/', { templateUrl: 'partials/homeView.html', controller: 'MainCtrl' });
+        $routeProvider.when('/', {
+            templateUrl: '/index.html',
+            controller: 'MovieIndexCtrl'
+        });
+
+        // if the url matches something like /movie/88 then this route
+        // will fire off the MovieDetailCtrl (controllers.js)
+        $routeProvider.when('/movie/:movieId', {
+            templateUrl: '/movie.html',
+            controller: 'MovieDetailCtrl'
+        });
+
+        /*$routeProvider.when('/', { templateUrl: 'partials/homeView.html', controller: 'MainCtrl' });
         $routeProvider.when('/viewLogin', { templateUrl: 'partials/loginView.html', controller: 'LoginCtrl' });
         $routeProvider.when('/viewCahierUsers', { templateUrl: 'partials/cahierUsersView.html', controller: 'CahierUsersCtrl' });
         $routeProvider.when('/viewCahier', { templateUrl: 'partials/cahierJourView.html', controller: 'CahierJourCtrl' });
@@ -25,7 +37,7 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/viewEvent', { templateUrl: 'partials/newEventView.html', controller: 'EventCtrl' });
         $routeProvider.when('/viewPhotos', { templateUrl: 'partials/photoView.html', controller: 'PhotosEventCtrl' });
         $routeProvider.when('/viewNewCahier', { templateUrl: 'partials/newCahier.html', controller: 'CahierCtrl' });
-        $routeProvider.when('/viewAbout', { templateUrl: 'partials/aboutView.html' });
+        $routeProvider.when('/viewAbout', { templateUrl: 'partials/aboutView.html' });*/
         $routeProvider.otherwise({redirectTo: '/'});
     } ]);
 

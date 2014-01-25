@@ -4,6 +4,7 @@ obj/
 My Project/
 sql/
 build/
+ionic-0.9.21-alpha/
 *.json
 !package.json
 *.sln

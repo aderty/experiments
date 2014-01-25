@@ -113,13 +113,13 @@ myApp.factory('notification', function ($rootScope, phonegapReady) {
     };
 });
 
-myApp.factory('navSvc', function($navigate) {
+myApp.factory('navSvc', function(/*$navigate*/) {
     return {
         slidePage: function (path,type) {
-            $navigate.go(path,type);
+            //$navigate.go(path,type);
         },
         back: function () {
-            $navigate.back();
+            //$navigate.back();
         }
     }
 });
@@ -313,7 +313,7 @@ myApp.factory('config', function ($q, $http, version) {
                 method: 'POST',
                 url: url,
                 data: {
-                    id: device.uuid || 'unknown',
+                    id: window.device ? window.device.uuid : 'unknown' || 'unknown',
                     version: version
                 }
             }).

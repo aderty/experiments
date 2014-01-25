@@ -43,3 +43,27 @@ var app = {
     orientationChange: function () {
     }
 };
+
+if (myApp.isPhone) {
+    // PhoneGap application
+    document.addEventListener('deviceready', start, false);
+} else {
+    // Web page
+    angular.element(document).ready(start);
+}
+
+function start() {
+    var x = document.createElement("script");
+    x.src = "lib/IndexedDBShim.min.js";
+    x.onload = function () {
+        var y = document.createElement("script");
+        y.src = "lib/jquery.indexeddb.js";
+        y.onload = function () {
+            window.setTimeout(function () {
+                myApp.initialize();
+            }, 250);
+        };
+        document.body.appendChild(y);
+    };
+    document.body.appendChild(x);
+}

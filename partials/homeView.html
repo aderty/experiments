@@ -1,4 +1,18 @@
-<section class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" ng-swipe-left="backDate()" ng-swipe-right="nextDate()" >
+<nav-page title="title">
+    <content has-header="true" on-infinite-scroll="loadMore">
+
+
+        <list>
+            <item ng-repeat="movie in movies" href="#/movie/{{movie.id}}" type="item-link">
+                {{ movie.title }}
+            </item>
+        </list>
+        <infinite-scroll></infinite-scroll>
+    </content>
+</nav-page>
+
+
+<!--<section class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" ng-swipe-left="backDate()" ng-swipe-right="nextDate()" >
 <div id="header" class="topcoat-navigation-bar header" >
     <div class="topcoat-navigation-bar__item left quarter">
         <a class="topcoat-icon-button--quiet off-screen-nav-button" title="menu" ng-click="" snap-toggle="left">
@@ -46,5 +60,5 @@
 
   <ng-include src="'partials/navigationMain.html'"></ng-include>
 
-</nav>
+</nav>-->
 
