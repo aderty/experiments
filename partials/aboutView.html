@@ -1,0 +1,29 @@
+<section class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" >
+<div class="topcoat-navigation-bar header">
+    <div class="topcoat-navigation-bar__item left quarter">
+        <a class="topcoat-icon-button--quiet" title="menu" snap-toggle="left" >
+            <i class="topcoat-icon listview-icon"></i>
+        </a>
+    </div>
+    <div class="topcoat-navigation-bar__item center half">
+        <h1 class="topcoat-navigation-bar__title">A propos</h1>
+    </div>
+    <div class="topcoat-navigation-bar__item right quarter">
+        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/','modal')">
+            <i class="topcoat-icon home-icon"></i>
+        </a>
+    </div>
+</div>
+<div id="content" class="pad">
+    <div class="panel">
+        <div class="panel-inner">
+        Pour nous contacter, venez visiter le site de d'application "Cahier de vie" sur <a target="_blank" href="http://www.moncahierdevie.com">www.moncahierdevie.com</a>.
+        </div>
+    </div>
+</div>
+</section>
+<nav class="topcoat-list__container snapjs-left navigation" snap-drawer >
+
+  <ng-include src="'partials/navigationMain.html'"></ng-include>
+
+</nav>

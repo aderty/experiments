@@ -1,0 +1,130 @@
+<section class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" >
+<div class="topcoat-navigation-bar header">
+    <div class="topcoat-navigation-bar__item left quarter">
+        <a class="topcoat-icon-button--quiet" title="back" ng-click="back()">
+            <span class="topcoat-icon back-icon"></span>
+        </a>
+    </div>
+    <div class="topcoat-navigation-bar__item center half">
+        <h1 class="topcoat-navigation-bar__title">{{title}}</h1>
+    </div>
+    <div class="topcoat-navigation-bar__item right quarter">
+        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/','modal')">
+            <span class="topcoat-icon home-icon"></span>
+        </a>
+    </div>
+</div>
+<div id="content" scroll class="login" >
+    <div class="panel" ng-if="mode == 0">
+        <button class="topcoat-icon-button full-btn" ng-click="setMode(1)" title="Se connecter">
+            <i class="topcoat-icon plus-icon"></i> Cr&eacute;er un compte
+        </button>
+        <button class="topcoat-button--cta  full-btn" ng-click="setMode(2)" title="Se connecter">
+            <i class="topcoat-icon user-icon"></i> Compte &eacute;xistant
+        </button>
+    </div>
+    <form id="newLoginForm" name="newLoginForm" ng-if="mode == 1 || mode == 6" class="panel">
+        <div class="panel-inner">
+            <div class="center field first" ng-class="{error: newLoginForm.newPseudo.$dirty && newLoginForm.newPseudo.$invalid, success:newLoginForm.newPseudo.$dirty && !newLoginForm.newPseudo.$invalid}">
+                <span class="field-label">Nom</span>
+                <input ng-model="user.pseudo" type="text" value="" placeholder="Pseudo" class="field-input" required id="newPseudo" name="newPseudo">
+            </div>
+            <!--<div class="input-help">
+                    <h4>Vous devez renseigner un nom.</h4>
+            </div>-->
+            <div class="center field" ng-class="{error: newLoginForm.newEmail.$dirty && newLoginForm.newEmail.$invalid, success:newLoginForm.newEmail.$dirty && !newLoginForm.newEmail.$invalid}">
+                <span class="field-label">Email</span>
+                <input ng-model="user.email" type="email" value="" placeholder="Email" class="field-input" required id="newEmail" name="newEmail">
+            </div>
+            <!--<div class="input-help">
+                    <h4>Vous devez renseigner un email.</h4>
+            </div>-->
+            <div class="center field" ng-class="{error: newLoginForm.newPwd.$dirty && newLoginForm.newPwd.$invalid, success:newLoginForm.newPwd.$dirty && !newLoginForm.newPwd.$invalid}">
+                <span class="field-label">Mot de passe</span>
+                <input ng-model="user.pwd" type="password" value="" placeholder="Saisir un mot de passe" class="field-input" required password-validate id="newPwd" name="newPwd">
+            </div>
+            <!--<div class="input-help">
+                 <h4>Vous devez saisir le m&ecirc;me mot de passe de 6 caract&egrave;res au minimum.</h4>
+            </div>-->
+            <div class="center field" ng-class="{error: newLoginForm.newPwdConfirm.$dirty && newLoginForm.newPwdConfirm.$invalid, success:newLoginForm.newPwdConfirm.$dirty && !newLoginForm.newPwdConfirm.$invalid}">
+                <span class="field-label">Confirmer le mot de passe</span>
+                <input ng-model="user.confirm_pwd" type="password" value="" placeholder="Re-saisir le mot de passe" class="field-input" required ui-validate="{test:'$value==user.pwd'}" ui-validate-watch="'user.pwd'" id="newPwdConfirm" name="newPwdConfirm">
+            </div>
+            <!--<div class="input-help">
+                    <h4>Vous devez saisir le m&ecirc;me mot de passe.</h4>
+            </div>-->
+            <div class="center field last" ng-if="mode == 1">
+                <button class="topcoat-button--cta full-btn" ng-click="create(user)" ng-disabled="newLoginForm.$invalid" title="Créer un compte">
+                    <i class="topcoat-icon lock-icon"></i> Cr&eacute;er...
+                </button>
+            </div>
+            <div class="center field last" ng-if="mode == 6">
+                <button class="topcoat-button--cta full-btn" ng-click="update(user)" ng-disabled="newLoginForm.$invalid" title="Modifier votre compte">
+                    <i class="topcoat-icon lock-icon"></i> Modifier votre compte
+                </button>
+            </div>
+        </div>
+        <br />
+        <div class="panel-inner" ng-if="mode == 6">
+            <div class="center field first">
+                <span class="field-label full">Administration</span>
+            </div>
+            <div class="center field last">
+                <span class="field-label">Attention !</span>
+                <button class="topcoat-icon-button--quiet btn-cancel" ng-click="disconnect()" title="Déconnecter">
+                    <i class="topcoat-icon delete-icon"></i> Me d&eacute;connecter
+                </button>
+            </div>
+        </div>
+    </form>
+    <form id="loginForm" name="loginForm" ng-if="mode == 2" class="panel">
+        <div class="panel-inner">
+        <div class="center field" ng-class="{error: loginForm.email.$dirty && loginForm.email.$invalid, success:loginForm.email.$dirty && !loginForm.email.$invalid}">
+            <span class="field-label">Email</span>
+            <input ng-model="user.email" type="email" value="" placeholder="Email" class="field-input" required id="email" name="email">
+        </div>
+        <!--<div class="input-help">
+                <h4>Vous devez renseigner votre email.</h4>
+        </div>-->
+        <div class="center field" ng-class="{error: loginForm.pwd.$dirty && loginForm.pwd.$invalid, success:loginForm.pwd.$dirty && !loginForm.pwd.$invalid}">
+            <span class="field-label">Mot de passe</span>
+            <input ng-model="user.pwd" type="password" value="" placeholder="Password" class="field-input" required id="pwd" name="pwd">
+        </div>
+        <!--<div class="input-help">
+             <h4>Vous devez saisir votre mot de passe.</h4>
+        </div>-->
+       <div class="center field last">
+            <button class="topcoat-button--cta full-btn" ng-click="connect(user)" ng-disabled="loginForm.$invalid" title="Se connecter">
+                <i class="topcoat-icon lock-icon"></i> Se connecter...
+            </button>
+        </div>
+       </div> 
+    </form>
+    <div class="panel" ng-if="mode == 3">
+        <div class="panel-inner">
+            <div class="center field first last sync">
+                <img src="img/ajax-loader.gif" /> <span class="field-input">Synchronisation du compte...</span>
+            </div>
+        </div>
+    </div>
+    <div class="panel" ng-if="mode == 4">
+        <div class="panel-inner">
+            <div class="center field first last sync">
+                <img src="img/ajax-loader.gif" /> <span class="field-input">Cr&eacute;ation du compte...</span>
+            </div>
+        </div>
+    </div>
+    <div class="panel" ng-if="mode == 7">
+        <div class="panel-inner">
+            <div class="center field first last sync">
+                <img src="img/ajax-loader.gif" /> <span class="field-input">Modification du compte...</span>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<nav class="topcoat-list__container snapjs-left navigation" snap-drawer >
+
+  <ng-include src="'partials/navigationMain.html'"></ng-include>
+
+</nav>

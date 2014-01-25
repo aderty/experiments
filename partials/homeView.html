@@ -1,0 +1,50 @@
+<section class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" ng-swipe-left="backDate()" ng-swipe-right="nextDate()" >
+<div id="header" class="topcoat-navigation-bar header" >
+    <div class="topcoat-navigation-bar__item left quarter">
+        <a class="topcoat-icon-button--quiet off-screen-nav-button" title="menu" ng-click="" snap-toggle="left">
+            <i class="topcoat-icon listview-icon"></i>
+        </a>
+    </div>
+    <div class="topcoat-navigation-bar__item center half">
+        <h1 class="topcoat-navigation-bar__title">Cahier de vie</h1>
+    </div>
+</div>
+<div class="topcoat-list__container list">
+
+<div>
+    
+    <div id="wrapper" scroll>
+    <div id="scroller" >
+    <ul class="topcoat-list enfants">
+        <li ng-if="loaded && !enfants.length" class="topcoat-list__item no-item noSelect">
+            <div class="list-inner">
+                Vous pouvez cr&eacute;er le cahier de vie d'un enfant en cliquant sur le bouton ci-dessous...
+            </div>
+        </li>
+        <li ng-repeat="enfant in enfants" ng-click="showCahier(enfant)" ng-class="{true:'gars', false:'fille'}[enfant.sexe == true]" class="topcoat-list__item noSelect">
+            <div class="list-inner">
+                <img ng-src="{{enfant.photo}}" class="li-thumb" ng-click="update(enfant);$event.stopPropagation();">
+                <div class="topcoat-icon pencil-icon edit" ng-click="update(enfant);$event.stopPropagation();">&nbsp;</div>
+                 <h3>{{ enfant.prenom }}</h3>
+             </div>
+            <i class="topcoat-icon next-icon"></i>
+        </li>
+        <li class="topcoat-list__item loading" ng-if="!loaded">
+            <img src="img/ajax-loader.gif" /><span>Chargement...</span>
+        </li>
+        <li class="topcoat-list__item" ng-click="newCahier()">
+            <span class="topcoat-icon plus-icon"></span> Nouveau cahier
+        </li>
+    </ul>
+    </div>
+    </div>
+    
+    </div>
+</div>
+</section>
+<nav class="topcoat-list__container snapjs-left navigation" id="homeNav" snap-drawer ng-class="{'ready': ready}" >
+
+  <ng-include src="'partials/navigationMain.html'"></ng-include>
+
+</nav>
+

@@ -1,0 +1,119 @@
+<section class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" >
+<div class="topcoat-navigation-bar header">
+    <div class="topcoat-navigation-bar__item left quarter">
+        <a class="topcoat-icon-button--quiet" title="back" ng-click="back()">
+            <span class="topcoat-icon back-icon"></span>
+        </a>
+    </div>
+    <div class="topcoat-navigation-bar__item center half">
+        <h1 class="topcoat-navigation-bar__title">Un instant...</h1>
+    </div>
+    <div class="topcoat-navigation-bar__item right quarter">
+        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/','modal')">
+            <i class="topcoat-icon home-icon"></i>
+        </a>
+    </div>
+</div>
+<div class="topcoat-button-bar full sub-header">
+        <div class="topcoat-button-bar__item">
+            <button class="topcoat-button-bar__button full first btn-photo" ng-disabled="event.pictures.length >= 3" ng-click="takePic()">
+                <div>
+                    <i class="neo160"></i>&nbsp;
+                </div>
+            </button>
+        </div>
+        <div class="topcoat-button-bar__item">
+            <button class="topcoat-button-bar__button full" ng-click="add(event)">
+                <i class="topcoat-icon checkmark-icon"></i>
+                Valider
+            </button>
+        </div>
+        <div class="topcoat-button-bar__item">
+            <button class="topcoat-button-bar__button full btn-cancel" ng-click="cancel()">
+                <i class="topcoat-icon error-icon"></i>
+                Annuler
+            </button>
+        </div>
+    </div>
+<div id="content" class="pad" scroll >
+    <form id="eventForm" name="eventForm" class="panel">
+        <div class="panel-inner">
+            <div class="center field titre first">
+                <input id="inputTitle" type="text" ng-model="event.title" class="field-input" placeholder="Titre" />
+            </div>
+            <div class="center field">
+                <span class="field-input type">
+                    <span class="icoEventConainer">
+                        <img ng-src="{{predefTitle[event.type].img}}" class="icoEvent" />
+                    </span>
+                        <select id="selectTitle" class="field-input" ng-model="event.type" selectscroll style="display:none;">
+                            <option value="{{title.id}}" ng-repeat="title in predefTitle">{{title.libelle}}</option>
+                        </select>
+                    </span>
+            </div>
+        <div class="center field" ng-if="event.pictures.length > 0" ng-swipe-left="prevPhoto()" ng-swipe-right="nextPhoto()">
+                <!-- ng-click="showPhotos()" -->
+                <span class="field-label">Photos</span>
+                <div id="slides" class="pic{{event.pictures.length}}">
+                    <div id="overflow">
+                        <article ng-repeat="picData in event.pictures" class="evt-photos" ng-click="showPhotos()">
+                            <!--<div class="info"><h3>Cloud Dragon</h3> by <a href="http://voyager3.tumblr.com">Brendan Zabarauskas</a></div>-->
+                            <img class="evt-photo-item {{picData.dir}}" ng-src="{{picData.url}}" />
+                        </article>
+                    </div> <!-- #overflow -->
+                </div>
+        </div>
+        <div class="center field">
+            <span class="field-label">Description
+                <button ng-click="showDesc()">
+                    <i class="topcoat-icon pencil-icon"></i>
+                </button>
+            </span>
+            <textarea id="descriptionInput" ng-model="event.desc" class="field-input" rows="6" cols="36" focusscroll placeholder="Description de l'&eacute;v&egrave;nement"></textarea>
+        </div>
+            <div class="center field last">
+                <span class="field-label">Heure {{event.time}}</span>
+                <input type="text" timepicker ng-model="event.time" class="field-input" style="display:none;" />
+            </div>
+        </div>
+    </form>
+</div>
+</section>
+<div ng-if="showPhotoMenu" class="overlay default dw-bottom dw-webkit">
+        <div class="dw-persp">
+            <div class="dwo"></div>
+            <div class="dw dwbg action-menu">
+                <span class="dwbw dwb-s action-btn">
+                    <a href="" class="dwb dwb-e action" role="button" ng-click="takePic(1)">Appareil photo</a>
+                </span>
+                <span class="dwbw dwb-c action-btn">
+                    <a href="" class="dwb dwb-e action" role="button" ng-click="takePic(0)">Ma biblioth&egrave;que</a>
+                </span>
+                <span class="dwbw dwb-c action-btn">
+                    <a href="" class="dwb dwb-e action" role="button" ng-click="takePic()">Annuler</a>
+                </span>
+            </div>
+        </div>
+</div>
+<input type="file" id="filesEvent" name="files[]" multiple />
+<nav class="topcoat-list__container snapjs-left navigation" snap-drawer>
+      <ng-include src="'partials/navigationMain.html'"></ng-include>
+</nav>
+
+<!--<div class="topcoat-overlay-bg" ng-show="popTitle"></div>-->
+<!--<aside id='settingsOverlayTitle' ng-show="popTitle" class="topcoat-overlay-pop">
+    <div class="center field titre first last">
+        <span class="field-label">Titre</span>
+        <div>
+            <select id="selectTitle" class="field-input btn-titre" selectscroll>
+                <option value="">Choisir un titre pr&eacute;d&eacute;fini</option>
+                <option ng-repeat="title in predefTitle">{{title}}</option>
+            </select>
+            <input ng-model="event.title" type="text" value="" placeholder="Titre personnalis&eacute;" class="field-input">
+            <button class="field-input" ng-click="popTitle = false;">
+                <i class="topcoat-icon checkmark-icon"></i>
+                Ok
+            </button>
+        </div>
+    </div>
+</aside>-->

@@ -1,0 +1,50 @@
+<section class="wrapper" ng-controller="HomeCtrl" snap-content>
+    <div class="topcoat-navigation-bar header">
+        <div class="topcoat-navigation-bar__item left quarter">
+            <a class="topcoat-icon-button--quiet" title="back" ng-click="back()">
+                <span class="topcoat-icon back-icon"></span>
+            </a>
+        </div>
+        <div class="topcoat-navigation-bar__item center half">
+            <h1 class="topcoat-navigation-bar__title">{{title}}</h1>
+        </div>
+        <div class="topcoat-navigation-bar__item right quarter">
+            <a class="topcoat-icon-button--quiet" ng-click="slidePage('/','modal')">
+                <span class="topcoat-icon home-icon"></span>
+            </a>
+        </div>
+    </div>
+    <div id="content" scroll>
+        <form id="userForm" name="userForm" class="panel">
+            <div class="panel-inner">
+                <div class="center field">
+                    <span class="field-label">Mes amis</span>
+                    <div class="field-input">
+                        <ul class="amis">
+                            <li ng-if="enfant.users.length == 1">Aucun...</li>
+                            <li ng-repeat="ami in enfant.users  | not_me">
+                                {{ami.pseudo}}
+                                <a class="topcoat-icon-button--quiet delete" title="Supprimer" ng-click="remove(ami, $index);$event.stopPropagation();" style="float: right;">
+                                    <i class="topcoat-icon delete-icon"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="center field">
+                    <span class="field-label">Email &agrave; ajouter</span>
+                    <input ng-model="email" type="email" value="" placeholder="Email" class="field-input" required id="email" name="email">
+                </div>
+                <div class="center field last">
+                    <button class="topcoat-button--cta full-btn" ng-click="add(email, this)" title="Ajouter aux amis">
+                        <i class="topcoat-icon plus-icon"></i> Ajouter aux amis
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<nav class="topcoat-list__container snapjs-left navigation" snap-drawer>
+    <ng-include src="'partials/navigationMain.html'"></ng-include>
+</nav>

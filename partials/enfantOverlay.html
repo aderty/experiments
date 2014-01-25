@@ -1,0 +1,13 @@
+<div class="topcoat-overlay-bg" ng-show="showEnfantOverlay" ></div>
+<aside id='settingsOverlay2' ng-show="showEnfantOverlay" class="topcoat-overlay"  ng-controller="EnfantOverlayCtrl">
+    <h1>Action sur le cahier de {{current.prenom}}</h1>
+    <div class="center">
+            <button class="topcoat-button--large--cta" ng-click="update(current)">Modifier</button>
+    </div>
+    <div class="center">
+            <button class="topcoat-button--large--cta" ng-click="remove(current)">Supprimer</button>
+    </div>
+    <div class="topcoat-overlay-buttons">
+        <button role="button" class="topcoat-button--cta" ng-click="closeOverlay()">Ok</button>
+    </div>
+</aside>

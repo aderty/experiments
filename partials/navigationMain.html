@@ -1,0 +1,10 @@
+<h4 class="topcoat-list__header" snap-close>
+    Navigation
+        <i class="topcoat-icon cancel-icon"></i>
+</h4>
+
+  <ul class="topcoat-list" ng-controller="NavigationCtrl">
+    <li class="topcoat-list__item" ng-click="slidePage('/viewAbout')"><span>A propos</span><i class="topcoat-icon question-icon"></i></li>
+    <li class="topcoat-list__item" ng-if="!isConnected" ng-click="connect()"><span>Se connecter</span><i class="topcoat-icon lock-icon"></i></li>
+    <li class="topcoat-list__item" ng-if="isConnected" ng-click="connect()"><span>Mon compte</span><i class="topcoat-icon user-icon"></i></li>
+  </ul>
