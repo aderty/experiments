@@ -86,7 +86,7 @@ if (myApp.isPhone) {
 
 function createModal() {
     var modal = document.createElement("div");
-    modal.innerHTML = "<span>Chargement...<span><input />";
+    modal.innerHTML = "<span>Chargement...<span>";
     modal.classList.add("loading-modal");
     return modal;
 }
