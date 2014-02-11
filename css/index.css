@@ -1026,11 +1026,11 @@ h1 .li-thumb
 	overflow: hidden;
 }
 
-#wrapper > div
+#content.scrollable, #wrapper.scrollable
 {
     white-space: nowrap;
-    overflow-y: hidden;
-    overflow-x: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 

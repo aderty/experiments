@@ -184,6 +184,8 @@ angular.module('myApp.directives', [])
                 var TIMEOUT = 800;
                 var myScroll;
 
+                elm.addClass('scrollable');
+
                 function load(wrapper) {
                     myScroll = new iScroll(wrapper, {
                         scrollbars: true,
