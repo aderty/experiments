@@ -905,11 +905,17 @@ h1 .li-thumb
 	left:auto;
 }
 
-#cahierForm .btn-photo,
+#cahierForm .btn-photo {
+    margin: 5px;
+    width: 90px;
+	height: 90px;
+    border-radius: 100%;
+}
+
 #cahierForm .btn-photo img
 {
-	width: 100px;
-	height: 100px;
+	width: 90px;
+	height: 90px;
 }
 #cahierForm .btn-photo.has-photo
 {
@@ -1025,15 +1031,6 @@ h1 .li-thumb
 	width: 100%;
 	overflow: hidden;
 }
-
-#content.scrollable, #wrapper.scrollable
-{
-    white-space: nowrap;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-}
-
 
 #pge-events #wrapper{
 	top: 8.6rem;
@@ -1187,10 +1184,15 @@ nav.navigation h4 > i{
 	z-index: 2;
 	margin-top: 0.7rem;
 	margin-left: 0.7rem;
+    border-radius: 50%;
+}
+.genre .topcoat-switch__toggle{
+    border-radius: 100%;
 }
 .genre .topcoat-switch__toggle:before {
-    content: 'GARS';
-    padding-left:0;
+    content: 'GARçON';
+    padding-left: 0;
+    padding-right: 12px;
 }
 .genre .topcoat-switch__toggle:after {
     content: 'FILLE';
