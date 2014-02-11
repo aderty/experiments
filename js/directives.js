@@ -222,7 +222,7 @@ angular.module('myApp.directives', [])
                     myScroll.hasVerticalScroll = true;
                 }
 
-                setTimeout(function () {
+                /*setTimeout(function () {
                     var wrapper = document.getElementById(elm[0].id)
                     if (!wrapper.children || !wrapper.children.length) return;
                     load(wrapper);
@@ -237,7 +237,7 @@ angular.module('myApp.directives', [])
                     scope.$on('destroy', function() {
                         myScroll.destroy();
                     });
-                }, 350);
+                }, 350);*/
             }
         };
     } ])

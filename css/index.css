@@ -1026,6 +1026,15 @@ h1 .li-thumb
 	overflow: hidden;
 }
 
+#wrapper > div
+{
+    white-space: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+
 #pge-events #wrapper{
 	top: 8.6rem;
 }
