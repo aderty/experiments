@@ -182,13 +182,14 @@ angular.module('myApp.directives', [])
                 var valid = true;
                 var DELTA = 10;
                 var TIMEOUT = 800;
+                var myScroll;
 
-                setTimeout(function() {
-                    var myScroll = new iScroll(document.getElementById(elm[0].id), {
+                function load(wrapper) {
+                    myScroll = new iScroll(wrapper, {
                         scrollbars: true,
                         mouseWheel: true,
                         interactiveScrollbars: true,
-                        onBeforeScrollStart: function(e) {
+                        onBeforeScrollStart: function (e) {
                             valid = true;
                             var target = e.target;
                             while (target.nodeType != 1) target = target.parentNode;
@@ -196,8 +197,8 @@ angular.module('myApp.directives', [])
                                 e.preventDefault();
                             }
                             else if (target.tagName.toLowerCase() == 'textarea') {
-                                setTimeout((function(input) {
-                                    return function() {
+                                setTimeout((function (input) {
+                                    return function () {
                                         if (valid) {
                                             input.focus();
                                         }
@@ -206,7 +207,7 @@ angular.module('myApp.directives', [])
                                 e.preventDefault();
                             }
                         },
-                        onBeforeScrollMove: function(e) {
+                        onBeforeScrollMove: function (e) {
                             valid = false;
                         } /*,
                         onScrollEnd: function (e) {
@@ -219,10 +220,20 @@ angular.module('myApp.directives', [])
                     });
                     elm.data('scroll', myScroll);
                     myScroll.hasVerticalScroll = true;
+                }
+
+                setTimeout(function () {
+                    var wrapper = document.getElementById(elm[0].id)
+                    if (!wrapper.children || !wrapper.children.length) return;
+                    load(wrapper);
                     function refresh() {
                         myScroll.refresh();
                     }
+                    function reload() {
+                        load(wrapper);
+                    }
                     scope.$on('refresh-scroll', refresh);
+                    scope.$on('reload-scroll', reload);
                     scope.$on('destroy', function() {
                         myScroll.destroy();
                     });

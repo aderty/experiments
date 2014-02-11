@@ -1,4 +1,4 @@
-<section class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" ng-swipe-left="nextDate()" ng-swipe-right="backDate()" >
+﻿<section id="pge-events" class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" ng-swipe-left="nextDate()" ng-swipe-right="backDate()">
     <div class="topcoat-navigation-bar header">
         <div class="topcoat-navigation-bar__item left quarter">
             <a class="topcoat-icon-button--quiet" title="menu" ng-click="" snap-toggle="left">
@@ -27,60 +27,60 @@
             </button>
         </div>
     </div>-->
-    <div class="topcoat-list__container list" >
-        <div id="wrapper" scroll>
-            <ul class="topcoat-list events" >
-                <li class="topcoat-list__item loading" ng-class="{'now':isCurrentDate()}">
-                    <h3>{{currentCahier.date | moment:'dddd D MMMM YYYY'}}</h3>
-                        <div class="humeur">
-                            <button ng-click="showHumeur()">
-                                <img ng-src="{{currentCahier.humeur.img}}" />
-                            </button>
-                            <div class="popover bottom" ng-if="showSmiley">
-                                <div class="arrow"></div>
-                                <h3 class="popover-title">Humeur du jour</h3>
-                                <div class="popover-content">
-                                    <ul class="humeurs">
-                                        <li ng-repeat="smiley in smileys" ng-click="editEvent(event)">
-                                            <img ng-src="{{smiley.img}}" ng-click="setHumeur(smiley);$event.stopPropagation();" />
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                </li>
-                <li class="topcoat-list__item action">
-                    <button class="topcoat-button--cta full" ng-click="newEvent()">
-                        <i class="topcoat-icon plus-icon"></i> Ajouter un &eacute;v&egrave;nement
-                    </button>
-                </li>
-                <li class="topcoat-list__item loading" ng-if="!loaded">
-                    <img src="img/ajax-loader.gif" /><span>Chargement...</span>
-                </li>
+    <div class="topcoat-list__item loading status" ng-class="{'now':isCurrentDate()}">
+        <div class="date-events">
+            <h3 class="center">{{currentCahier.date | moment:'dddd'}}</h3>
+            <h4 class="center light" >{{currentCahier.date | moment:'D MMMM YYYY'}}</h4>
+        </div>
+        <div class="humeur">
+            <button ng-click="showHumeur()">
+                <img ng-if="loaded" ng-src="{{currentCahier.humeur.img}}" />
+                <img ng-if="!loaded" src="img/ajax-loader.gif" />
+            </button>
+            <div class="popover bottom" ng-if="showSmiley">
+                <div class="arrow"></div>
+                <h3 class="popover-title center">Humeur du jour</h3>
+                <div class="popover-content">
+                    <ul class="humeurs">
+                        <li ng-repeat="smiley in smileys" ng-click="editEvent(event)">
+                            <img ng-src="{{smiley.img}}" ng-click="setHumeur(smiley);$event.stopPropagation();" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="topcoat-list__container list">
+        <div id="wrapper" scroll ng-if="!currentEvent">
+            <ul class="topcoat-list events">
+                <!--<li class="topcoat-list__item loading" ng-if="!loaded">
+                <img src="img/ajax-loader.gif" /><span>Chargement...</span>
+            </li>-->
                 <li ng-repeat="event in currentCahier.events | filter: {etat:1} | orderBy:'time'" ng-click="editEvent(event)" class="topcoat-list__item" ng-class="{'has-photo': event.pictures.length > 0}">
-                    <div class="time"><img ng-if="event.type != undefined" ng-src="{{predefTitle[event.type].img}}" class="icoEvent" />{{ event.time }}<span class="creator">{{event.creator.pseudo}}</span></div>
+                    <div class="time light"><img ng-if="event.type != undefined" ng-src="{{predefTitle[event.type].img}}" class="icoEvent" />{{ event.time }}<span class="creator">{{event.creator.pseudo}}</span></div>
                     <div class="list-inner">
-                        
                         <h3>{{event.title &&  event.title != "" ? event.title : predefTitle[event.type].libelle}}</h3>
                     </div>
                     <div class="evts-photos" ng-animate="'slide'">
-                        <img class="evt-photo-item {{event.pictures[0] ? event.pictures[0].dir :''}}"  ng-if="event.pictures.length > 0" ng-src="{{event.pictures[0].url}}" />
+                        <img class="evt-photo-item {{event.pictures[0] ? event.pictures[0].dir :''}}" ng-if="event.pictures.length > 0" ng-src="{{event.pictures[0].url}}" />
                         <span ng-if="event.pictures.length > 1" class="topcoat-notification counter">{{event.pictures.length}}</span>
                     </div>
                     <a class="topcoat-icon-button--quiet delete" title="Supprimer" ng-click="removeEvent(event, $index);$event.stopPropagation();" style="float: right;">
                         <i class="topcoat-icon delete-icon"></i>
                     </a>
                 </li>
+                <li class="topcoat-list__item add" ng-click="newEvent()">
+                    <i class="topcoat-icon plus-icon"></i> Ajouter un &eacute;v&egrave;nement
+                </li>
             </ul>
         </div>
-    </div>
 </section>
-<nav class="topcoat-list__container snapjs-left navigation" snap-drawer >
-  <ng-include src="'partials/navigationMain.html'"></ng-include>
-  
-  <ul class="topcoat-list" ng-controller="NavigationCtrl">
-    <datemodelpicker ng-model="currentDate" snap-close><li class="topcoat-list__item">Changer de journ&eacute;e <i class="topcoat-icon next-icon"></i></li></datemodelpicker>
-    <li class="topcoat-list__item" ng-click="modifierEnfant()"><span>Modifier infos</span><i class="topcoat-icon brush-icon"></i></li>
-  </ul>
-  
+<nav class="topcoat-list__container snapjs-left navigation" snap-drawer>
+    <ng-include src="'partials/navigationMain.html'"></ng-include>
+
+    <ul class="topcoat-list" ng-controller="NavigationCtrl">
+        <datemodelpicker ng-model="currentDate" snap-close><li class="topcoat-list__item">Changer de journ&eacute;e <i class="topcoat-icon next-icon"></i></li></datemodelpicker>
+        <li class="topcoat-list__item" ng-click="modifierEnfant()"><span>Modifier infos</span><i class="topcoat-icon brush-icon"></i></li>
+    </ul>
+
 </nav>

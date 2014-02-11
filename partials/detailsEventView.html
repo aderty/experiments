@@ -1,45 +1,60 @@
-<section class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" >
-<div class="topcoat-navigation-bar header">
-    <div class="topcoat-navigation-bar__item left quarter">
-        <a class="topcoat-icon-button--quiet" title="back" ng-click="back()">
-            <span class="topcoat-icon back-icon"></span>
-        </a>
-    </div>
-    <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Un instant...</h1>
-    </div>
-    <div class="topcoat-navigation-bar__item right quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/viewEvent','modal')">
-            <i class="topcoat-icon pencil-icon"></i>
-        </a>
-    </div>
-</div>
-<div id="content" class="pad" scroll >
-    <form id="eventForm" name="eventForm" class="panel">
-        <div class="panel-inner">
-        <div class="center field titre first">
-            <span class="icoEventConainer"><img ng-src="{{predefTitle[event.type].img}}" class="icoEvent" /></span>
-            <span class="field-label">
-                {{event.time}} : {{event.title &&  event.title != "" ? event.title : predefTitle[event.type].libelle}}
-            </span>
+<section id="pge-details"  class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" ng-swipe-left="nextEvent()" ng-swipe-right="backEvent()">
+    <div class="topcoat-navigation-bar header">
+        <div class="topcoat-navigation-bar__item left quarter">
+            <a class="topcoat-icon-button--quiet" title="back" ng-click="back()">
+                <span class="topcoat-icon back-icon"></span>
+            </a>
         </div>
-            <div class="center field titre" ng-if="event.desc">
-                <pre>{{event.desc}}</pre>
-            </div>
-        <div class="center field last" ng-if="event.pictures.length > 0">
-                <!-- ng-click="showPhotos()" -->
-                <span class="field-label">Photos</span>
-                <div id="slides" class="pic{{event.pictures.length}}">
-                    <div id="overflow">
-                        <article ng-repeat="picData in event.pictures" class="evt-photos" ng-click="showPhotos()">
-                            <!--<div class="info"><h3>Cloud Dragon</h3> by <a href="http://voyager3.tumblr.com">Brendan Zabarauskas</a></div>-->
-                            <img class="evt-photo-item {{picData.dir}}" ng-src="{{picData.url}}" />
-                        </article>
-                    </div> <!-- #overflow -->
+        <div class="topcoat-navigation-bar__item center half">
+            <h1 class="topcoat-navigation-bar__title"><img ng-src="{{currentEnfant.photo}}" class="li-thumb" />{{currentEnfant.prenom}}</h1>
+        </div>
+        <div class="topcoat-navigation-bar__item right quarter">
+            <a ng-if="event" class="topcoat-icon-button--quiet" ng-click="slidePage('/viewEvent','modal')">
+                <i class="topcoat-icon pencil-icon"></i>
+            </a>
+        </div>
+    </div>
+    <div class="topcoat-list__item loading status" ng-class="{'now':isCurrentDate()}">
+        <div class="date-events">
+            <h3 class="center">{{currentDate | moment:'dddd'}}</h3>
+            <h4 class="center light">{{currentDate | moment:'D MMMM YYYY'}}</h4>
+        </div>
+    </div>
+    <div id="content" class="pad" scroll>
+        <form id="eventForm" name="eventForm" class="panel" ng-if="event">
+            <div class="panel-inner">
+                <div class="field titre first">
+                    <span class="icoEventConainer"><img ng-src="{{predefTitle[event.type].img}}" class="icoEvent" /></span>
+                    <span class="lib light">
+                        {{event.time}}
+                    </span>
+                    <span class="lib">
+                        {{event.title &&  event.title != "" ? event.title : predefTitle[event.type].libelle}}
+                    </span>
                 </div>
+                <div class="center field titre" ng-if="event.desc">
+                    <pre>{{event.desc}}</pre>
+                </div>
+                <div class="center field last" ng-if="event.pictures.length > 0">
+                    <!-- ng-click="showPhotos()" -->
+                    <span class="field-label">Photos</span>
+                    <div id="slides" class="pic{{event.pictures.length}}">
+                        <div id="overflow">
+                            <article ng-repeat="picData in event.pictures" class="evt-photos" ng-click="showPhotos()">
+                                <!--<div class="info"><h3>Cloud Dragon</h3> by <a href="http://voyager3.tumblr.com">Brendan Zabarauskas</a></div>-->
+                                <img class="evt-photo-item {{picData.dir}}" ng-src="{{picData.url}}" />
+                            </article>
+                        </div> <!-- #overflow -->
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div ng-if="!event" class="empty">
+            <div>
+                <h1>Aucun &eacute;v&egrave;vements ce jour...</h1>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
 </section>
 
 <nav class="topcoat-list__container snapjs-left navigation" snap-drawer>

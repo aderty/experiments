@@ -1,94 +1,109 @@
 ﻿<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Ionic List Example</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<html xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
 
-    <link href="css/ionic.css" rel="stylesheet">
+        <!-- Use the .min version of bootstrap files in production -->
+        <!-- Use the following if you want to use responsive design -->        
 
-    <!-- ionic/angularjs scripts -->
-    <script src="lib/ionic.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular/angular-animate.js"></script>
-    <script src="lib/angular/angular-sanitize.js"></script>
-    <script src="lib/angular-ui/angular-ui-router.js"></script>
-    <script src="lib/ionic-angular.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/mobile-nav.css" />
 
-    <!-- your app's script -->
-    <script src="js/test.js"></script>
-  </head>
+        <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.css">
 
-  <!-- 
-    'listExample' is the name of this angular module (app.js)
-    'animation' attribute sets which type of animations to use
-  -->
-  <body ng-app="listExample" animation="slide-left-right-ios7">
+        <link rel="stylesheet" type="text/css" href="css/snap.css">
+        <link rel="stylesheet" type="text/css" href="css/angular-snap.css">
+        
+        <link href="css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+        <link href="css/mobiscroll.scroller.ios7.css" rel="stylesheet" type="text/css" />
+        <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
+        
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        
+        <link href="css/photoswipe.css" type="text/css" rel="stylesheet" />
 
-    <!-- The nav bar that will be updated as we navigate -->
-    <nav-bar 
-      animation="nav-title-slide-ios7" 
-      type="bar-positive" 
-      back-button-type="button-icon" 
-      back-button-icon="ion-arrow-left-c"></nav-bar>
-
-    <!-- where the content of each page will be rendered -->
-    <nav-view animation="slide-left-right"></nav-view>
-
-
-    <!-- 
-      Belows are examples of using inline angular templates:
-      http://docs.angularjs.org/api/ng.directive:script
-    -->
+        <title>Mon cahier de vie</title>
+    </head>
     
-    <!--
-      This template loads when the the root '/' url is matched (app.js)
-      'movies' is a $scope variable which was created in MovieIndexCtrl (controllers.js)
-      The MovieIndexCtrl gets data from the MovieService (service.js)
-    -->
-    <script type="text/ng-template" id="/index.html">
-      <view title="title">
-        <content has-header="true">
-          
-          <list>
-            <item ng-repeat="movie in movies" href="#/movie/{{movie.id}}" type="item-link">
-              {{ movie.title }}
-            </item>
-          </list>
-          
-        </content>
-      </view>
-    </script>
-    
-    <!--
-      This template loads when the '/movie/:movieId' url is matched (app.js)
-      'movie' is a $scope variable which was created in MovieDetailCtrl (controllers.js)
-      The MovieDetailCtrl gets data from the MovieService (service.js)
-    -->
-    <script type="text/ng-template" id="/movie.html">
-      <view title="title">
-        <content has-header="true" padding="true">
-          <h1>{{ movie.title }}</h1>
-          <dl>
-            <dt>Description:</dt>
-            <dd>{{ movie.description }}</dd>
-          </dl>
-          <dl>
-            <dt>Released:</dt>
-            <dd>{{ movie.released }}</dd>
-          </dl>
-          <dl>
-            <dt>Director:</dt>
-            <dd>{{ movie.director }}</dd>
-          </dl>
-          <dl>
-            <dt>Rating:</dt>
-            <dd>{{ movie.rating }}</dd>
-          </dl>
-        </content>
-      </view>
-    </script>
+    <body>
+        <!-- The following tag is in place of ng-view to use the angular mobile view navigation framework
+            https://github.com/ajoslin/angular-mobile-nav
+        -->
+        <ng-view/>
 
+        <ng-include src="'partials/comOverlay.html'"></ng-include>
 
-  </body>
+        <!-- Comment out the following 2 lines to test on the browser-->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        
+        <!-- In production use min versions -->
+        
+        <script src="lib/jquery-2.0.3.min.js"></script>
+
+        <script src="lib/jx.min.js"></script>
+        <script src="lib/angular.min.js"></script>
+        <script src="lib/angular-route.min.js"></script>
+        <script src="lib/angular-touch.js"></script>
+        <script src="lib/angular-touch-hold.js"></script>
+        <script src="lib/mobile-nav.min.js"></script>
+        
+        <script src="lib/snap.min.js"></script>
+        <script src="lib/angular-snap.min.js"></script>
+
+        <!--<script src="lib/IndexedDBShim.min.js"></script>
+        <script src="lib/jquery.indexeddb.js"></script>-->
+        
+        <script src="lib/iscroll.js"></script>
+
+        <script src="lib/moment.min.js"></script>
+        <script src="lib/moment-fr.js"></script>
+        
+        <script src="lib/mobiscroll.core.js"></script>
+        <script src="lib/mobiscroll.scroller.js"></script>
+        <script src="lib/mobiscroll.datetime.js"></script>
+        <script src="lib/mobiscroll.select.js"></script>
+        <script src="lib/mobiscroll.scroller.ios7.js"></script>
+        <script src="lib/i18n/mobiscroll.i18n.fr.js"></script>
+        
+        <script type="text/javascript" src="lib/simple-inheritance.min.js"></script>
+        <script async type="text/javascript" src="lib/code-photoswipe-1.0.11.js"></script>
+
+        <!--<script async src="lib/md5.min.js"></script>
+        <script async src="lib/rpc.js"></script>-->
+        <script async src="lib/dropbox.js"></script>
+
+        <script src="js/app.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/filters.js"></script>
+        <script src="js/directives.js"></script>
+
+        <script type="text/javascript">
+            if (myApp.isPhone) {
+                // PhoneGap application
+                document.addEventListener('deviceready', start, false);
+            } else {
+                // Web page
+                angular.element(document).ready(start);
+            }
+
+            function start() {
+                var x = document.createElement("script");
+                x.src = "lib/IndexedDBShim.min.js";
+                x.onload = function () {
+                    var y = document.createElement("script");
+                    y.src = "lib/jquery.indexeddb.js";
+                    y.onload = function () {
+                        window.setTimeout(function () {
+                            myApp.initialize();
+                        }, 250);
+                    };
+                    document.body.appendChild(y);
+                };
+                document.body.appendChild(x);
+            }
+        </script>
+    </body>
 </html>

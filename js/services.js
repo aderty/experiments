@@ -113,13 +113,13 @@ myApp.factory('notification', function ($rootScope, phonegapReady) {
     };
 });
 
-myApp.factory('navSvc', function(/*$navigate*/) {
+myApp.factory('navSvc', function($navigate) {
     return {
         slidePage: function (path,type) {
-            //$navigate.go(path,type);
+            $navigate.go(path,type);
         },
         back: function () {
-            //$navigate.back();
+            $navigate.back();
         }
     }
 });
@@ -313,7 +313,7 @@ myApp.factory('config', function ($q, $http, version) {
                 method: 'POST',
                 url: url,
                 data: {
-                    id: window.device ? window.device.uuid : 'unknown' || 'unknown',
+                    id: device.uuid || 'unknown',
                     version: version
                 }
             }).
@@ -1243,7 +1243,7 @@ myApp.factory('CahierService', function ($q, db, $timeout, $http, $filter, $root
     return me;
 });
 
-myApp.factory('EventService', function ($q, db) {
+myApp.factory('EventService', function ($q, db, $rootScope, EnfantService, CahierService, $filter) {
     var d = new Date();
     var current = null;
     return {
@@ -1252,6 +1252,100 @@ myApp.factory('EventService', function ($q, db) {
         },
         setCurrent: function (_event) {
             current = _event;
+        },
+        nextEvent: function () {
+            function back() {
+                $rootScope.nextDate();
+                CahierService.get(enfant, $rootScope.currentDate).then(function (ca) {
+                    CahierService.setCurrent(ca);
+                    if (ca && ca.events && ca.events.length) {
+                        var i = 0, events = $filter("orderBy")(ca.events, 'time');
+                        current = events[i++];
+                        while (current && current.etat == 0) {
+                            current = events[i++];
+                        }
+                        return defered.resolve(current);
+                    }
+                    return defered.resolve(null);
+                    /*limit--;
+                    if(limit == 0){
+                        return
+                    }
+                    back();*/
+                });
+            }
+
+            var defered = $q.defer();
+            var cahier = CahierService.getCurrent();
+            var index = -1, limit = 30, events;
+            if (cahier) {
+                events = $filter("orderBy")(cahier.events, 'time');
+                for (var i = 0, e; e = events[i]; i++) {
+                    if (e.id == current.id) {
+                        index = i + 1;
+                        break;
+                    }
+                }
+            }
+            if (events && events[index]) {
+                current = events[index++];
+                while (index >= 0 && current && current.etat == 0) {
+                    current = events[index++];
+                }
+                defered.resolve(current);
+            }
+            else {
+                var enfant = EnfantService.getCurrent();
+
+                back();
+            }
+            return defered.promise;
+        },
+        backEvent: function () {
+            function next() {
+                $rootScope.backDate();
+                CahierService.get(enfant, $rootScope.currentDate).then(function (ca) {
+                    CahierService.setCurrent(ca);
+                    if (ca && ca.events && ca.events.length) {
+                        var i = ca.events.length - 1, events = $filter("orderBy")(ca.events, 'time');
+                        current = events[i--];
+                        while (i >= 0 && current && current.etat == 0) {
+                            current = events[i--];
+                        }
+                        return defered.resolve(current);
+                    }
+                    return defered.resolve(null);
+                    /*limit--;
+                    if(limit == 0){
+                        return
+                    }
+                    next();*/
+                });
+            }
+            var defered = $q.defer();
+            var cahier = CahierService.getCurrent();
+            var index = -1, limit = 30, events;
+            if (cahier) {
+                events = $filter("orderBy")(cahier.events, 'time');
+                for (var i = 0, e; e = events[i]; i++) {
+                    if (e.id == current.id) {
+                        index = i - 1;
+                        break;
+                    }
+                }
+            }
+            if (index > 0 && events && events[index]) {
+                current = events[index--];
+                while (index >= 0 && current && current.etat == 0) {
+                    current = events[index--];
+                }
+                defered.resolve(current);
+            }
+            else {
+                var enfant = EnfantService.getCurrent();
+                next();
+            }
+            return defered.promise;
         }
     };
 });

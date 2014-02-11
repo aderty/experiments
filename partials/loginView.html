@@ -26,35 +26,39 @@
     <form id="newLoginForm" name="newLoginForm" ng-if="mode == 1 || mode == 6" class="panel">
         <div class="panel-inner">
             <div class="center field first" ng-class="{error: newLoginForm.newPseudo.$dirty && newLoginForm.newPseudo.$invalid, success:newLoginForm.newPseudo.$dirty && !newLoginForm.newPseudo.$invalid}">
-                <span class="field-label">Nom</span>
-                <input ng-model="user.pseudo" type="text" value="" placeholder="Pseudo" class="field-input" required id="newPseudo" name="newPseudo">
+                <label class="item item-input">
+                    <input ng-model="user.pseudo" type="text" value="" placeholder="Pseudo"  required id="newPseudo" name="newPseudo">
+                </label>
             </div>
             <!--<div class="input-help">
                     <h4>Vous devez renseigner un nom.</h4>
             </div>-->
             <div class="center field" ng-class="{error: newLoginForm.newEmail.$dirty && newLoginForm.newEmail.$invalid, success:newLoginForm.newEmail.$dirty && !newLoginForm.newEmail.$invalid}">
-                <span class="field-label">Email</span>
-                <input ng-model="user.email" type="email" value="" placeholder="Email" class="field-input" required id="newEmail" name="newEmail">
+                <label class="item item-input">
+                    <input ng-model="user.email" type="email" value="" placeholder="Email" required id="newEmail" name="newEmail">
+                </label>
             </div>
             <!--<div class="input-help">
                     <h4>Vous devez renseigner un email.</h4>
             </div>-->
             <div class="center field" ng-class="{error: newLoginForm.newPwd.$dirty && newLoginForm.newPwd.$invalid, success:newLoginForm.newPwd.$dirty && !newLoginForm.newPwd.$invalid}">
-                <span class="field-label">Mot de passe</span>
-                <input ng-model="user.pwd" type="password" value="" placeholder="Saisir un mot de passe" class="field-input" required password-validate id="newPwd" name="newPwd">
+                <label class="item item-input">
+                    <input ng-model="user.pwd" type="password" value="" placeholder="Saisir un mot de passe" required id="newPwd" name="newPwd">
+                </label>
             </div>
             <!--<div class="input-help">
                  <h4>Vous devez saisir le m&ecirc;me mot de passe de 6 caract&egrave;res au minimum.</h4>
             </div>-->
             <div class="center field" ng-class="{error: newLoginForm.newPwdConfirm.$dirty && newLoginForm.newPwdConfirm.$invalid, success:newLoginForm.newPwdConfirm.$dirty && !newLoginForm.newPwdConfirm.$invalid}">
-                <span class="field-label">Confirmer le mot de passe</span>
-                <input ng-model="user.confirm_pwd" type="password" value="" placeholder="Re-saisir le mot de passe" class="field-input" required ui-validate="{test:'$value==user.pwd'}" ui-validate-watch="'user.pwd'" id="newPwdConfirm" name="newPwdConfirm">
+                <label class="item item-input">
+                    <input ng-model="user.confirm_pwd" type="password" value="" placeholder="Re-saisir le mot de passe" required ui-validate="{test:'$value==user.pwd'}" ui-validate-watch="'user.pwd'" id="newPwdConfirm" name="newPwdConfirm">
+                </label>
             </div>
             <!--<div class="input-help">
                     <h4>Vous devez saisir le m&ecirc;me mot de passe.</h4>
             </div>-->
             <div class="center field last" ng-if="mode == 1">
-                <button class="topcoat-button--cta full-btn" ng-click="create(user)" ng-disabled="newLoginForm.$invalid" title="Créer un compte">
+                <button class="topcoat-button--cta full-btn" ng-click="create(user)" ng-disabled="newLoginForm.$invalid" title="CrÃ©er un compte">
                     <i class="topcoat-icon lock-icon"></i> Cr&eacute;er...
                 </button>
             </div>
@@ -70,8 +74,7 @@
                 <span class="field-label full">Administration</span>
             </div>
             <div class="center field last">
-                <span class="field-label">Attention !</span>
-                <button class="topcoat-icon-button--quiet btn-cancel" ng-click="disconnect()" title="Déconnecter">
+                <button class="topcoat-icon-button--quiet btn-cancel" ng-click="disconnect()" title="DÃ©connecter">
                     <i class="topcoat-icon delete-icon"></i> Me d&eacute;connecter
                 </button>
             </div>
@@ -80,15 +83,17 @@
     <form id="loginForm" name="loginForm" ng-if="mode == 2" class="panel">
         <div class="panel-inner">
         <div class="center field" ng-class="{error: loginForm.email.$dirty && loginForm.email.$invalid, success:loginForm.email.$dirty && !loginForm.email.$invalid}">
-            <span class="field-label">Email</span>
-            <input ng-model="user.email" type="email" value="" placeholder="Email" class="field-input" required id="email" name="email">
+            <label class="item item-input">
+                <input ng-model="user.email" type="email" value="" placeholder="Email" required id="email" name="email">
+            </label>
         </div>
         <!--<div class="input-help">
                 <h4>Vous devez renseigner votre email.</h4>
         </div>-->
         <div class="center field" ng-class="{error: loginForm.pwd.$dirty && loginForm.pwd.$invalid, success:loginForm.pwd.$dirty && !loginForm.pwd.$invalid}">
-            <span class="field-label">Mot de passe</span>
-            <input ng-model="user.pwd" type="password" value="" placeholder="Password" class="field-input" required id="pwd" name="pwd">
+            <label class="item item-input">
+                <input ng-model="user.pwd" type="password" value="" placeholder="Mot de passe" required id="pwd" name="pwd">
+            </label>
         </div>
         <!--<div class="input-help">
              <h4>Vous devez saisir votre mot de passe.</h4>
