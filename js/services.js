@@ -495,7 +495,9 @@ myApp.factory('EnfantService', function ($q, db, $timeout, CahierService, LoginS
                     enfants.push(enfant);
                 }
             }
-	        return db.getInstance().objectStore("enfants").put(enfant).done(function () {
+            var toStore = angular.copy(enfant);
+            delete toStore.setCredentials;
+            return db.getInstance().objectStore("enfants").put(toStore).done(function () {
                 $timeout(function () {
                     defered.resolve(true);
                 });

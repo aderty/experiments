@@ -32,8 +32,9 @@
                     </div>
                 </div>
                 <div class="center field">
-                    <span class="field-label">Email &agrave; ajouter</span>
-                    <input ng-model="email" type="email" value="" placeholder="Email" class="field-input" required id="email" name="email">
+                    <label class="item item-input">
+                        <input ng-model="email" type="email" value="" placeholder="Email &agrave; ajouter" required id="email" name="email">
+                    </label>
                 </div>
                 <div class="center field last">
                     <button class="topcoat-button--cta full-btn" ng-click="add(email, this)" title="Ajouter aux amis">

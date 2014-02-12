@@ -101,9 +101,8 @@
                 <button class="topcoat-icon-button btn-dropbox" ng-if="isAuthenticated" ng-click="authenticate()">&nbsp;</button>
             </div>
             <div class="center field last" ng-if="!enfant.creation">
-                <span class="field-label">Attention !</span>
                 <button class="topcoat-icon-button--quiet btn-cancel" ng-click="remove(enfant)" title="Supprimer" ng-if="enfant.owner">
-                    <i class="topcoat-icon delete-icon"></i> Supprimer
+                    <i class="topcoat-icon delete-icon"></i> Supprimer le cahier
                 </button>
                 <button class="topcoat-icon-button--quiet btn-cancel" ng-click="remove(enfant)" title="Désabonner" ng-if="!enfant.owner && !enfant.creation">
                     <i class="topcoat-icon delete-icon"></i> Me d&eacute;sabonner

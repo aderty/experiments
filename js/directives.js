@@ -185,11 +185,11 @@ angular.module('myApp.directives', [])
                 var myScroll;
 
                 function load(wrapper) {
-                    myScroll = new iScroll(wrapper, {
+                    myScroll = new IScroll(wrapper, {
                         scrollbars: true,
                         mouseWheel: true,
                         interactiveScrollbars: true,
-                        onBeforeScrollStart: function (e) {
+                        /*onBeforeScrollStart: function (e) {
                             valid = true;
                             var target = e.target;
                             while (target.nodeType != 1) target = target.parentNode;
@@ -206,7 +206,7 @@ angular.module('myApp.directives', [])
                                 })(target), 250);
                                 e.preventDefault();
                             }
-                        },
+                        },*/
                         onBeforeScrollMove: function (e) {
                             valid = false;
                         } /*,
