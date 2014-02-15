@@ -19,13 +19,15 @@
             <h3 class="center">{{currentDate | moment:'dddd'}}</h3>
             <h4 class="center light">{{currentDate | moment:'D MMMM YYYY'}}</h4>
         </div>
+        <div ng-if="event" class="humeur">
+            <img ng-src="{{predefTitle[event.type].img}}" class="icoEvent" />
+        </div>
     </div>
     <div id="content" class="pad" scroll>
         <form id="eventForm" name="eventForm" class="panel" ng-if="event">
             <div class="panel-inner">
                 <div class="field titre first">
-                    <span class="icoEventConainer"><img ng-src="{{predefTitle[event.type].img}}" class="icoEvent" /></span>
-                    <span class="lib light">
+                    <span class="lib time light">
                         {{event.time}}
                     </span>
                     <span class="lib">
@@ -37,7 +39,6 @@
                 </div>
                 <div class="center field last" ng-if="event.pictures.length > 0">
                     <!-- ng-click="showPhotos()" -->
-                    <span class="field-label">Photos</span>
                     <div id="slides" class="pic{{event.pictures.length}}">
                         <div id="overflow">
                             <article ng-repeat="picData in event.pictures" class="evt-photos" ng-click="showPhotos()">

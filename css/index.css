@@ -149,9 +149,9 @@ li.loading span {
 .panel {
     padding: 0.5rem;
     position: absolute;
-	min-width: 100%;
-	/*min-height: 100%;*/
-	width: auto !important;
+	/*min-width: 100%;
+	min-height: 100%;
+	width: auto !important;*/
 	height: auto !important;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1044,7 +1044,7 @@ h1 .li-thumb
 }
 
 #pge-details #content{
-    top: 8.6rem;
+    top: 9.5rem;
 }
 
 #pge-events .list {
@@ -1133,6 +1133,10 @@ nav.navigation h4 > i{
 #pge-details .date-events > h3{
     font-size: 2.3rem;
     margin: 0;
+}
+
+#pge-details .time{
+    max-width: 1rem;
 }
 
 .events .now

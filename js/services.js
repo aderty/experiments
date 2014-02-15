@@ -328,7 +328,7 @@ myApp.factory('config', function ($q, $http, version) {
                 method: 'POST',
                 url: url,
                 data: {
-                    id: device.uuid || 'unknown',
+                    id: window.device ? window.device.uuid : 'unknown',
                     version: version
                 }
             }).
