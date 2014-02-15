@@ -711,7 +711,7 @@ select.field-input {
     border: none;
     border-radius: 1rem;
 }
-.humeur button img {
+.humeur img {
     height: 4.8rem;
 }
 
@@ -1044,7 +1044,7 @@ h1 .li-thumb
 }
 
 #pge-details #content{
-    top: 9.5rem;
+    top: 8.0rem;
 }
 
 #pge-events .list {
