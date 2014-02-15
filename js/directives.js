@@ -224,7 +224,7 @@ angular.module('myApp.directives', [])
 
                 setTimeout(function () {
                     var wrapper = document.getElementById(elm[0].id)
-                    if (!wrapper.children || !wrapper.children.length) return;
+                    if (!wrapper || !wrapper.children || !wrapper.children.length) return;
                     load(wrapper);
                     function refresh() {
                         myScroll.refresh();
