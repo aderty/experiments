@@ -1055,20 +1055,18 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
         });
         navSvc.back();
     }
-
+    document.removeEventListener("backbutton", onBackKeyDown, false);
     document.addEventListener("backbutton", onBackKeyDown, false);
 
-    function onBackKeyDown(event) {
+    function onBackKeyDown(e) {
+        document.removeEventListener("backbutton", onBackKeyDown, false);
         notification.confirm("Etes-vous sûre de vouloir quitter l'édition de l'évènement sans sauvegarder ?", function (confirm) {
             if (confirm != 1) return false;
             $scope.cancel();
         }, "Cahier de vie", ["Oui", "Non"]);
-        event.preventDefault();
+        e.preventDefault();
         return false;
     }
-    $scope.$on('destroy', function () {
-        document.removeEventListener("backbutton", onBackKeyDown, false);
-    });
 
     $scope.cancel = function () {
         if (!$scope.event.creation) {
