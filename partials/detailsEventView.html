@@ -1,4 +1,4 @@
-<section id="pge-details"  class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" ng-swipe-left="nextEvent()" ng-swipe-right="backEvent()">
+<section id="pge-details" class="wrapper" ng-controller="HomeCtrl" snap-content snap-options="optsNavigation" ng-swipe-left="nextEvent()" ng-swipe-right="backEvent()">
     <div class="topcoat-navigation-bar header">
         <div class="topcoat-navigation-bar__item left quarter">
             <a class="topcoat-icon-button--quiet" title="back" ng-click="back()">
@@ -41,7 +41,6 @@
                     <div id="slides" class="pic{{event.pictures.length}}">
                         <div id="overflow">
                             <article ng-repeat="picData in event.pictures" class="evt-photos" ng-click="showPhotos()">
-                                <!--<div class="info"><h3>Cloud Dragon</h3> by <a href="http://voyager3.tumblr.com">Brendan Zabarauskas</a></div>-->
                                 <img class="evt-photo-item {{picData.dir}}" ng-src="{{picData.url}}" />
                             </article>
                         </div> <!-- #overflow -->
@@ -53,10 +52,13 @@
             <div>
                 <h1>Aucun &eacute;v&egrave;vements ce jour...</h1>
             </div>
+            <button class="topcoat-button--cta  full-btn" ng-click="newEvent()" title="Ajouter un &eacute;v&egrave;nement">
+                <i class="topcoat-icon plus-icon"></i> Ajouter un &eacute;v&egrave;nement
+            </button>
         </div>
     </div>
 </section>
 
 <nav class="topcoat-list__container snapjs-left navigation" snap-drawer>
-      <ng-include src="'partials/navigationMain.html'"></ng-include>
+    <ng-include src="'partials/navigationMain.html'"></ng-include>
 </nav>

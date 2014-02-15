@@ -9,22 +9,27 @@ angular.module('myApp.services', []).
   value('version', 'v1');
 
 // phonegap ready service - listens to deviceready
-myApp.factory('phonegapReady', function() {
+myApp.factory('phonegapReady', function () {
     return function (fn) {
+
         var queue = [];
+
         var impl = function () {
-        queue.push(Array.prototype.slice.call(arguments));
-    };
-              
-    document.addEventListener('deviceready', function () {
-        queue.forEach(function (args) {
-            fn.apply(this, args);
-        });
-        impl = fn;
-    }, false);
-              
-    return function () {
-        return impl.apply(this, arguments);
+            queue.push(Array.prototype.slice.call(arguments));
+        };
+        if (!myApp.isPhone) {
+            impl = fn;
+        }
+
+        document.addEventListener('deviceready', function () {
+            queue.forEach(function (args) {
+                fn.apply(this, args);
+            });
+            impl = fn;
+        }, false);
+
+        return function () {
+            return impl.apply(this, arguments);
         };
     };
 });
@@ -85,6 +90,11 @@ myApp.factory('accelerometer', function ($rootScope, phonegapReady) {
 myApp.factory('notification', function ($rootScope, phonegapReady) {
     return {
         alert: phonegapReady(function (message, alertCallback, title, buttonName) {
+            if (!myApp.isPhone) {
+                alert(message);
+                alertCallback.apply(this);
+                return;
+            }
             navigator.notification.alert(message, function () {
                 var that = this,
                     args = arguments;
@@ -95,6 +105,11 @@ myApp.factory('notification', function ($rootScope, phonegapReady) {
             }, title, buttonName);
         }),
         confirm: phonegapReady(function (message, confirmCallback, title, buttonLabels) {
+            if (!myApp.isPhone) {
+                var rep = confirm(message);
+                confirmCallback.apply(this, [rep ? 1 : 2]);
+                return;
+            }
             navigator.notification.confirm(message, function () {
                 var that = this,
                     args = arguments;
