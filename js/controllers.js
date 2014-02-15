@@ -520,7 +520,7 @@ function CahierCtrl($scope, navSvc, EnfantService, CahierService, EventService, 
     $scope.add = function (enfant) {
         if (!enfant) return;
         if (!enfant.prenom || enfant.prenom == "") {
-            notification.alert("Veuillez saisir un prénom.", function () {}, "Cahier de vie", ["Ok"]);
+            notification.alert("Veuillez saisir un prénom.", function () {}, "Cahier de vie", "Ok");
             return;
         }
         if (!enfant.id) {
