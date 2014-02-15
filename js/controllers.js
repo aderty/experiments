@@ -719,7 +719,7 @@ function EventDetailsCtrl($scope, $rootScope, navSvc, LoginService, EnfantServic
 
 
 
-function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, db) {
+function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, db, notification) {
     $rootScope.showEnfantOverlay = false;
     $scope.event = EventService.getCurrent();
     $scope.showPhotoMenu = false;
@@ -1058,11 +1058,12 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
 
     document.addEventListener("backbutton", onBackKeyDown, false);
 
-    function onBackKeyDown() {
+    function onBackKeyDown(event) {
         notification.confirm("Etes-vous sûre de vouloir quitter l'édition de l'évènement sans sauvegarder ?", function (confirm) {
             if (confirm != 1) return false;
             $scope.cancel();
         }, "Cahier de vie", ["Oui", "Non"]);
+        event.preventDefault();
         return false;
     }
     $scope.$on('destroy', function () {
