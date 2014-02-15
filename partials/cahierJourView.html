@@ -65,7 +65,7 @@
                         <img class="evt-photo-item {{event.pictures[0] ? event.pictures[0].dir :''}}" ng-if="event.pictures.length > 0" ng-src="{{event.pictures[0].url}}" />
                         <span ng-if="event.pictures.length > 1" class="topcoat-notification counter">{{event.pictures.length}}</span>
                     </div>
-                    <a class="topcoat-icon-button--quiet delete" title="Supprimer" ng-click="removeEvent(event, $index);$event.stopPropagation();" style="float: right;">
+                    <a ng-if="event.creator.id == user._id" class="topcoat-icon-button--quiet delete" title="Supprimer" ng-click="removeEvent(event, $index);$event.stopPropagation();" style="float: right;">
                         <i class="topcoat-icon delete-icon"></i>
                     </a>
                 </li>

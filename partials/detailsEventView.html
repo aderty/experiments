@@ -9,7 +9,7 @@
             <h1 class="topcoat-navigation-bar__title"><img ng-src="{{currentEnfant.photo}}" class="li-thumb" />{{currentEnfant.prenom}}</h1>
         </div>
         <div class="topcoat-navigation-bar__item right quarter">
-            <a ng-if="event" class="topcoat-icon-button--quiet" ng-click="slidePage('/viewEvent','modal')">
+            <a ng-if="event && event.creator.id == user._id" class="topcoat-icon-button--quiet" ng-click="slidePage('/viewEvent','modal')">
                 <i class="topcoat-icon pencil-icon"></i>
             </a>
         </div>
