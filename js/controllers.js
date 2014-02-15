@@ -612,13 +612,13 @@ function CahierCtrl($scope, navSvc, EnfantService, CahierService, EventService, 
         DropBoxService.authenticate(function (err, client) {
             if (err) {
                 console.error(err);
-                notification.alert('Authentification dropbox KO...', function (button) { }, 'Cahier de vie', ['Continuer']);
+                notification.alert('Authentification dropbox KO...', function (button) { }, 'Cahier de vie', 'Continuer');
                 alert("Authentification dropbox KO...");
                 alert(err);
                 DropBoxService.reset();
                 return;
             }
-            notification.alert('Authentification dropbox réussie.', function (button) { }, 'Cahier de vie', ['Continuer']);
+            notification.alert('Authentification dropbox réussie.', function (button) { }, 'Cahier de vie', 'Continuer');
             var credentials = client.credentials();
             if (client.authStep == 5 && credentials) {
                 $scope.enfant.setCredentials(credentials);
@@ -636,7 +636,7 @@ function CahierUsersCtrl($scope, navSvc, EnfantService, LoginService, notificati
 
     $scope.add = function (email, form) {
         if (!email) {
-            notification.alert('Veuillez saisir un email.', function (button) { }, 'Cahier de vie', ['Ok']);
+            notification.alert('Veuillez saisir un email.', function (button) { }, 'Cahier de vie', 'Ok');
             return;
         }
         form.email = "";
