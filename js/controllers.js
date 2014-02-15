@@ -228,59 +228,25 @@ function NavigationCtrl($scope, navSvc, $rootScope, $timeout, LoginService) {
 function MessageCtrl($scope, $rootScope, $timeout) {
 }
 
-function EnfantOverlayCtrl($scope, $rootScope, navSvc, EnfantService, notification) {
-    $scope.closeOverlay = function () {
-        $rootScope.showEnfantOverlay = false;
-    };
-    $scope.update = function () {
-        $scope.closeOverlay();
-        navSvc.slidePage('/viewNewCahier');
-    }
-    $scope.remove = function () {
-        if (confirm("Etes-vous sur ?")) {
-            $scope.closeOverlay();
-            EnfantService.remove(EnfantService.getCurrent()).then(function () {
-                $scope.$emit("reload");
-            });
-        }
-        /*if(notification.confirm("Etes-vous sur ?", function(){
-            $scope.closeOverlay();
-            EnfantService.remove(EnfantService.getCurrent());
-        });*/
-    }
-}
-
-function MainCtrl($scope, navSvc, $rootScope, $timeout, EnfantService, CahierService) {
+function MainCtrl($scope, navSvc, $rootScope, $timeout, EnfantService, CahierService, notification) {
     $scope.loaded = false;
     $scope.slidePage = function (path, type) {
         navSvc.slidePage(path, type);
     };
-
-    /*$scope.backDate = function(){
-        $rootScope.currentDate.setDate($rootScope.currentDate.getDate()-1);
-        $rootScope.currentDate = new Date($rootScope.currentDate.getTime());
-        $rootScope.$broadcast('loadCahier');
-    }
-    $scope.nextDate = function(){
-        $rootScope.currentDate.setDate($rootScope.currentDate.getDate()+1);
-        $rootScope.currentDate = new Date($rootScope.currentDate.getTime());
-        $rootScope.$broadcast('loadCahier');
-    }*/
 
     $scope.update = function (enfant) {
         EnfantService.setCurrent(enfant);
         navSvc.slidePage('/viewNewCahier');
     }
     $scope.remove = function (enfant) {
-        if (confirm("Etes-vous sur ?")) {
+        notification.confirm('Etes-vous sur ?', function (button) {
+            // yes = 1, no = 2, later = 3
+            if (button != '1') return;
+
             EnfantService.remove(enfant).then(function () {
                 $scope.$emit("reload");
             });
-        }
-        /*if(notification.confirm("Etes-vous sur ?", function(){
-            $scope.closeOverlay();
-            EnfantService.remove(EnfantService.getCurrent());
-        });*/
+        }, 'Cahier de vie', ['Supprimer', 'Annuler']);
     }
 
     $rootScope.showEnfantOverlay = false;
@@ -535,7 +501,7 @@ function CahierJourCtrl($scope, $rootScope, navSvc, EnfantService, CahierService
     setlabelTransmi();
 }
 
-function CahierCtrl($scope, navSvc, EnfantService, CahierService, EventService, DropBoxService) {
+function CahierCtrl($scope, navSvc, EnfantService, CahierService, EventService, DropBoxService, notification) {
 
     $scope.enfant = EnfantService.getCurrent();
     $scope.title = "Nouveau cahier";
@@ -554,7 +520,8 @@ function CahierCtrl($scope, navSvc, EnfantService, CahierService, EventService, 
     $scope.add = function (enfant) {
         if (!enfant) return;
         if (!enfant.prenom || enfant.prenom == "") {
-            return alert("Veuillez saisir un prénom.");
+            notification.alert("Veuillez saisir un prénom.", function () {}, "Cahier de vie", ["Ok"]);
+            return;
         }
         if (!enfant.id) {
             enfant.id = new Date().getTime();
@@ -569,34 +536,14 @@ function CahierCtrl($scope, navSvc, EnfantService, CahierService, EventService, 
         });
     }
     $scope.remove = function (enfant) {
-        navigator.notification.confirm(
-                'If you enjoy using domainsicle, whould you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!',
-                function (button) {
-                    // yes = 1, no = 2, later = 3
-                    if (button == '1') {    // Rate Now
-                        if (device_ios) {
-                            window.open('itms-apps://itunes.apple.com/us/app/domainsicle-domain-name-search/id511364723?ls=1&mt=8'); // or itms://
-                        } else if (device_android) {
-                            window.open('market://details?id=<package_name>');
-                        } else if (device_bb) {
-                            window.open('http://appworld.blackberry.com/webstore/content/<applicationid>');
-                        }
-                        this.core.rate_app = false;
-                    } else if (button == '2') { // Later
-                        this.core.rate_app_counter = 0;
-                    } else if (button == '3') { // No
-                        this.core.rate_app = false;
-                    }
-                },
-           'Rate domainsicle',
-           ['Rate domainsicle', 'Remind me later', 'No Thanks']
-   );
-
-        /*if (confirm("Etes-vous sur ?")) {
-            EnfantService.remove(enfant).then(function () {
-                navSvc.back();
-            });
-        }*/
+        notification.confirm('Etes-vous sur?', function (button) {
+            // yes = 1, no = 2, later = 3
+            if (button == '1') {    // Rate Now
+                EnfantService.remove(enfant).then(function () {
+                    navSvc.back();
+                });
+            }
+        }, 'Cahier de vie', ['Supprimer', 'Annuler']);
     }
     $scope.cancel = function () {
         if (!$scope.enfant.creation) {
@@ -665,12 +612,13 @@ function CahierCtrl($scope, navSvc, EnfantService, CahierService, EventService, 
         DropBoxService.authenticate(function (err, client) {
             if (err) {
                 console.error(err);
+                notification.alert('Authentification dropbox KO...', function (button) { }, 'Cahier de vie', ['Continuer']);
                 alert("Authentification dropbox KO...");
                 alert(err);
                 DropBoxService.reset();
                 return;
             }
-            alert("Authentification dropbox OK!");
+            notification.alert('Authentification dropbox réussie.', function (button) { }, 'Cahier de vie', ['Continuer']);
             var credentials = client.credentials();
             if (client.authStep == 5 && credentials) {
                 $scope.enfant.setCredentials(credentials);
@@ -681,14 +629,15 @@ function CahierCtrl($scope, navSvc, EnfantService, CahierService, EventService, 
     }
 }
 
-function CahierUsersCtrl($scope, navSvc, EnfantService, LoginService) {
+function CahierUsersCtrl($scope, navSvc, EnfantService, LoginService, notification) {
 
     $scope.enfant = EnfantService.getCurrent();
     $scope.title = "Mes amis";
 
     $scope.add = function (email, form) {
         if (!email) {
-            return alert("Veuillez saisir un email.");
+            notification.alert('Veuillez saisir un email.', function (button) { }, 'Cahier de vie', ['Ok']);
+            return;
         }
         form.email = "";
         LoginService.addUser($scope.enfant, email).then(function (data) {
@@ -702,16 +651,19 @@ function CahierUsersCtrl($scope, navSvc, EnfantService, LoginService) {
         });
     }
     $scope.remove = function (user) {
-        if (confirm("Etes-vous sur ?")) {
-            LoginService.removeUser($scope.enfant, user).then(function (data) {
-                var index = $scope.enfant.users.indexOf(user);
-                $scope.enfant.users.splice(index, 1);
-                $scope.enfant.tick = data.tick;
-                $scope.enfant.fromServer = true;
-                EnfantService.save($scope.enfant);
-                //$scope.$apply();
-            });
-        }
+        notification.confirm('Etes-vous sur?', function (button) {
+            // yes = 1, no = 2, later = 3
+            if (button == '1') {    // Rate Now
+                LoginService.removeUser($scope.enfant, user).then(function (data) {
+                    var index = $scope.enfant.users.indexOf(user);
+                    $scope.enfant.users.splice(index, 1);
+                    $scope.enfant.tick = data.tick;
+                    $scope.enfant.fromServer = true;
+                    EnfantService.save($scope.enfant);
+                    //$scope.$apply();
+                });
+            }
+        }, 'Cahier de vie', ['Supprimer', 'Annuler']);
     }
 }
 
@@ -1143,8 +1095,8 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
     //Callback function when the file has been moved successfully - inserting the complete path
     function successMove(entry, direction) {
         //I do my insert with "entry.fullPath" as for the path
-        console.log(entry.toURL());
-        console.log("direction : " + direction);
+        //console.log(entry.toURL());
+        //console.log("direction : " + direction);
         $scope.event.pictures.push({
             name: entry.name,
             url: entry.toURL(),
@@ -1161,7 +1113,7 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
     }
 }
 
-function PhotosEventCtrl($scope, $rootScope, navSvc, EnfantService, CahierService, EventService) {
+function PhotosEventCtrl($scope, $rootScope, navSvc, EnfantService, CahierService, EventService, notification) {
     $scope.indexPhoto = 0;
     $scope.currentPhoto = "";
     $scope.event = EventService.getCurrent();
@@ -1191,15 +1143,20 @@ function PhotosEventCtrl($scope, $rootScope, navSvc, EnfantService, CahierServic
     }
 
     $scope.deleteImg = function (index) {
-        if (!confirm("Etes-vous sûre de vouloir supprimer cette photo ?")) return false;
-        deletePic($scope.event.pictures[index].url);
-        $scope.event.pictures.splice(index, 1);
-        if ($scope.event.pictures.length) {
-            $scope.currentPhoto = $scope.event.pictures[0];
-        }
-        else {
-            $scope.cancel();
-        }
+        notification.confirm('Etes-vous sûre de vouloir supprimer cette photo ?', function (button) {
+            // yes = 1, no = 2, later = 3
+            if (button != '1') return;
+
+            deletePic($scope.event.pictures[index].url);
+            $scope.event.pictures.splice(index, 1);
+            if ($scope.event.pictures.length) {
+                $scope.currentPhoto = $scope.event.pictures[0];
+            }
+            else {
+                $scope.cancel();
+            }
+        }, 'Cahier de vie', ['Supprimer', 'Annuler']);
+        return false;
     }
 
     function deletePic(file) {
