@@ -381,10 +381,12 @@ function LoginCtrl($scope, navSvc, $rootScope, $timeout, LoginService, EnfantSer
     };
 }
 
-function CahierJourCtrl($scope, $rootScope, navSvc, EnfantService, CahierService, EventService, $timeout, $filter, notification) {
+function CahierJourCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, $filter, notification) {
     $scope.loaded = true;
     $scope.sending = false;
     $scope.showSmiley = false;
+
+    var currentUser = LoginService.load();
 
     function loadCahier() {
         if (!EnfantService.getCurrent()) return;
@@ -467,6 +469,7 @@ function CahierJourCtrl($scope, $rootScope, navSvc, EnfantService, CahierService
         navSvc.slidePage("/viewEventDetails");
     }
     $scope.removeEvent = function (event, index) {
+        if (event.creator.id != currentUser._id) return;
         notification.confirm("Etes-vous sûre de vouloir supprimer cet évènement ?", function (confirm) {
             if (confirm != 1) return false;
             CahierService.removeEvent(EnfantService.getCurrent(), $scope.currentCahier, event).then(function () {
@@ -1040,6 +1043,7 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
             });
         }
         else {
+            if ($scope.event.creator.id != currentUser._id) return;
             $scope.event.tick = new Date;
             $scope.event.last_update = {
                 id: currentUser._id,
@@ -1051,6 +1055,20 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
         });
         navSvc.back();
     }
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
+    function onBackKeyDown() {
+        notification.confirm("Etes-vous sûre de vouloir quitter l'édition de l'évènement sans sauvegarder ?", function (confirm) {
+            if (confirm != 1) return false;
+            $scope.cancel();
+        }, "Cahier de vie", ["Oui", "Non"]);
+        return false;
+    }
+    $scope.$on('destroy', function () {
+        document.removeEventListener("backbutton", onBackKeyDown, false);
+    });
+
     $scope.cancel = function () {
         if (!$scope.event.creation) {
             angular.extend($scope.event, $scope.eventSaved);
@@ -1058,6 +1076,7 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
         }
         navSvc.back();
     }
+
     $scope.showPhotos = function () {
         //if(!validSwipe || !$scope.event.pictures) return;
         if (!$scope.event.pictures) return;
