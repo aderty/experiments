@@ -30,6 +30,24 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
     } ]);
 
 myApp.isPhone = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+
+function isPhonegap() {
+    return typeof cordova !== 'undefined' || typeof PhoneGap !== 'undefined' || typeof phonegap !== 'undefined';
+}
+
+function isIOS() {
+    return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
+}
+
+document.addEventListener('deviceready', function () {
+    // window.device is available only if you include the phonegap package
+    // http://docs.phonegap.com/en/3.0.0/cordova_device_device.md.html#Device
+    // Note for ios, you do not need to add anything to the config.xml, just add the plugin
+    if (isPhonegap() && isIOS() && window.device && parseFloat(window.device.version) >= 7.0) {
+        $('body').addClass('phonegap-ios-7');
+    }
+});
+
 myApp.isLocal = false;
 
 myApp.factory('myHttpInterceptor', function ($q, $rootScope, $timeout) {

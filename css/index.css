@@ -39,6 +39,21 @@
     src: url('../font/IndieFlower.ttf');
 }
 
+/**
+** Only add the margin for phonegap apps on ios 7
+**/
+body.phonegap-ios-7{
+  margin-top: 20px;
+}
+
+body.phonegap-ios-7 section{
+  margin-top: 20px;
+}
+
+body.phonegap-ios-7 .snap-drawers{
+  margin-top: 20px;
+}
+
 input, textarea {
     -webkit-user-select: auto !important;
     -khtml-user-select: auto !important;
@@ -1622,6 +1637,13 @@ nav.navigation h4 > i{
     background-size: cover;
 }
 
+.delete-icon.white {
+    background: url("../img/delete-white.svg") no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
 .back-icon {
     background: url("../img/back.svg") no-repeat;
     -webkit-background-size: cover;
@@ -2036,4 +2058,9 @@ p {
 #overflow {
 	width: 100%;
 	overflow: hidden;
+}
+
+/* Surcharge photoswipe */
+div.ps-caption {
+    height: 44px;
 }
