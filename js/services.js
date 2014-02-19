@@ -22,7 +22,6 @@ myApp.factory('phonegapReady', function () {
         }
 
         document.addEventListener('deviceready', function () {
-            navigator.app.overrideBackbutton(true);
             queue.forEach(function (args) {
                 fn.apply(this, args);
             });
