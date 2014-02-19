@@ -229,7 +229,6 @@ function MessageCtrl($scope, $rootScope, $timeout) {
 }
 
 function MainCtrl($scope, navSvc, $rootScope, $timeout, EnfantService, CahierService, notification) {
-    document.removeEventListener("backbutton");
     $scope.loaded = false;
     $scope.slidePage = function (path, type) {
         navSvc.slidePage(path, type);
@@ -383,8 +382,6 @@ function LoginCtrl($scope, navSvc, $rootScope, $timeout, LoginService, EnfantSer
 }
 
 function CahierJourCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, $filter, notification) {
-    document.removeEventListener("backbutton");
-
     $scope.loaded = true;
     $scope.sending = false;
     $scope.showSmiley = false;
