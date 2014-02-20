@@ -32,14 +32,73 @@ var app = {
     onLoad: function() {
         
     },
-   
     // deviceready Event Handler
-    onDeviceReady: function() {
-        /*angular.element(document).ready(function() {
-            angular.bootstrap(document);
-        });*/
+    onDeviceReady: function () {
+        app.receivedEvent('deviceready');
     },
+    // Update DOM on a Received Event
+    receivedEvent: function (id) {
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
 
-    orientationChange: function () {
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
+        var pushNotification = window.plugins.pushNotification;
+        if (device.platform == 'android' || device.platform == 'Android') {
+            alert("Register called");
+            pushNotification.register(this.successHandler, this.errorHandler, { "senderID": "moncahierdevie-virtuel", "ecb": "app.onNotificationGCM" });
+        }
+        else {
+            alert("Register called");
+            pushNotification.register(this.successHandler, this.errorHandler, { "badge": "true", "sound": "true", "alert": "true", "ecb": "app.onNotificationAPN" });
+        }
+    },
+    // result contains any message sent from the plugin call
+    successHandler: function (result) {
+        alert('Callback Success! Result = ' + result)
+    },
+    errorHandler: function (error) {
+        alert(error);
+    },
+    onNotificationGCM: function (e) {
+        switch (e.event) {
+            case 'registered':
+                if (e.regid.length > 0) {
+                    console.log("Regid " + e.regid);
+                    alert('registration id = ' + e.regid);
+                }
+                break;
+
+            case 'message':
+                // this is the actual push notification. its format depends on the data model from the push server
+                alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt);
+                break;
+
+            case 'error':
+                alert('GCM error = ' + e.msg);
+                break;
+
+            default:
+                alert('An unknown GCM event has occurred');
+                break;
+        }
+    },
+    onNotificationAPN: function (event) {
+        var pushNotification = window.plugins.pushNotification;
+        alert("Running in JS - onNotificationAPN - Received a notification! " + event.alert);
+
+        if (event.alert) {
+            navigator.notification.alert(event.alert);
+        }
+        if (event.badge) {
+            pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
+        }
+        if (event.sound) {
+            var snd = new Media(event.sound);
+            snd.play();
+        }
     }
 };

@@ -27,7 +27,7 @@
   <name>Experiments</name>
 
   <description>
-    Expériementations
+    ExpÃ©riementations
   </description>
 
   <author href="http://www.appytek.com/" email="support@phonegap.com">
@@ -120,4 +120,5 @@
   
   <!-- splashscreen -->
   <gap:splash src="res/splash/splash.png" />
+  <gap:plugin name="com.adobe.plugins.pushplugin" />
 </widget>

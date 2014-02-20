@@ -34,6 +34,25 @@ myApp.factory('phonegapReady', function () {
     };
 });
 
+myApp.factory('backbutton', function () {
+    var queue = [];
+    document.addEventListener("backbutton", onBackKeyDown, false);
+    //navigator.app.overrideBackbutton(true);
+    function onBackKeyDown(e) {
+        queue.forEach(function (args) {
+            fn.apply(this, args);
+        });
+    }
+
+    return {
+        onBackButton: phonegapReady(function (callback) {
+            queue.push(callback);
+        })
+    };
+});
+
+
+
 myApp.factory('geolocation', function ($rootScope, phonegapReady) {
   return {
     getCurrentPosition: function (onSuccess, onError, options) {
