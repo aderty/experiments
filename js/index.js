@@ -70,7 +70,6 @@ var app = {
             case 'registered':
                 if (e.regid.length > 0) {
                     console.log("Regid " + e.regid);
-                    alert('registration id = ' + e.regid);
                     if ($.fn.scope && $("html").scope().addPushId) {
                         $("html").scope().addPushId(e.regid, "gcm");
                     }

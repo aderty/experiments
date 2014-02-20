@@ -130,7 +130,6 @@ myApp.run(["$rootScope", "$timeout", function ($rootScope, $timeout) {
 
 }]);
 
-
 myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "LoginService", "EnfantService", "DropBoxService", function ($rootScope, phonegapReady, $timeout, config, navSvc, LoginService, EnfantService, DropBoxService) {
     $rootScope.isConnected = false;
     $rootScope.user = LoginService.load();

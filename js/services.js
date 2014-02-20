@@ -1949,28 +1949,43 @@ myApp.factory('LoginService', function ($q, $http, $timeout, $rootScope, config)
         },
         addPushId: function(id, type){
             var defered = $q.defer();
-            var url = "http://" + config.getUrl() + '/addPushId/' + config.getVersion();
-            $http({
-                method: 'POST',
-                url: url,
-                data: {
-                    user: currentLogin,
-                    push: {
-                        id: id,
-                        type: type
+            if (currentLogin.pushIds && currentLogin.pushIds[type].indexOf(id) > -1) {
+                defered.resolve({result: true});
+            }
+            else {
+                var url = "http://" + config.getUrl() + '/addPushId/' + config.getVersion();
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: {
+                        user: currentLogin,
+                        push: {
+                            id: id,
+                            type: type
+                        }
                     }
-                }
-            }).
-            success(function (data, status, headers, config) {
-                // this callback will be called asynchronously
-                // when the response is available
-                defered.resolve(data);
-            }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                defered.reject(arguments);
-            });
+                }).
+                success(function (data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    defered.resolve(data);
+                    if (!currentLogin.pushIds) {
+                        currentLogin.pushIds = {
+                            gcm: [],
+                            apn: []
+                        }
+                    }
+                    if (currentLogin.pushIds[type].indexOf(id) == -1) {
+                        currentLogin.pushIds[type].push(id);
+                        me.store(currentLogin);
+                    }
+                }).
+                error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    defered.reject(arguments);
+                });
+            }
             return defered.promise;
         }
     } 
