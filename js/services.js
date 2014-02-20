@@ -661,7 +661,7 @@ myApp.factory('EnfantService', function ($q, db, $timeout, CahierService, LoginS
     return me;
 });
 
-myApp.factory('CahierService', function ($q, db, $timeout, $http, $filter, $rootScope, config, DropBoxService) {
+myApp.factory('CahierService', function ($q, db, $timeout, $http, $filter, $rootScope, config, DropBoxService, LoginService) {
     var orderBy = $filter('orderBy');
     var cahierChangeCb = [];
     var ip = config.getUrlUpload();
@@ -964,6 +964,8 @@ myApp.factory('CahierService', function ($q, db, $timeout, $http, $filter, $root
                         delete toSync[cahier.id];
                         localStorage["cahiersToSync"] = JSON.stringify(toSync);
                         me.save(enfant, cahier);
+
+                        LoginService.pushEvent(enfant, cahier);
                     });
                 }
             }
@@ -1986,6 +1988,30 @@ myApp.factory('LoginService', function ($q, $http, $timeout, $rootScope, config)
                     defered.reject(arguments);
                 });
             }
+            return defered.promise;
+        },
+        pushEvent: function (cahier, event) {
+            var defered = $q.defer();
+            var url = "http://" + config.getUrl() + '/pushEvent/' + config.getVersion();
+            $http({
+                method: 'POST',
+                url: url,
+                data: {
+                    user: currentLogin,
+                    cahier: cahier._id,
+                    event: event
+                }
+            }).
+            success(function (data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                defered.resolve(data);
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                defered.reject(arguments);
+            });
             return defered.promise;
         }
     } 
