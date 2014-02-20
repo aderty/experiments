@@ -49,7 +49,7 @@ var app = {
         var pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
             alert("Register called");
-            pushNotification.register(this.successHandler, this.errorHandler, { "senderID": "moncahierdevie-virtuel", "ecb": "app.onNotificationGCM" });
+            pushNotification.register(this.successHandler, this.errorHandler, { "senderID": "482658637609", "ecb": "app.onNotificationGCM" });
         }
         else {
             alert("Register called");
