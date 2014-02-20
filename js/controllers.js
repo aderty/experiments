@@ -135,7 +135,16 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
     $rootScope.isConnected = false;
     $rootScope.user = LoginService.load();
     if ($rootScope.user) {
+        
+        $rootScope.addPushId = function(id, type){
+            LoginService.addPushId(id, type);
+        }
+        
         $rootScope.isConnected = true;
+        $rootScope.$on('synced', function (e) {
+            app.receivedEvent('deviceready');
+        });
+        
         $rootScope.$on('initialized', function (e) {
             EnfantService.list().then(function (dbEnfants) {
                 var i = 0, l = dbEnfants.length, enfants = {};

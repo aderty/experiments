@@ -97,6 +97,7 @@
         <plugin name="Battery" value="CDVBattery" />
         <plugin name="Globalization" value="CDVGlobalization" />
         <plugin name="InAppBrowser" value="CDVInAppBrowser" />
+        <plugin name="PushNotification" value="PushNotification" />
     </plugins>
 
     <access origin="*" />
@@ -120,5 +121,5 @@
   
   <!-- splashscreen -->
   <gap:splash src="res/splash/splash.png" />
-  <gap:plugin name="com.phonegap.plugins.pushplugin" version="1.3.7" />
+  <gap:plugin name="com.phonegap.plugins.pushplugin" />
 </widget>

@@ -21,7 +21,7 @@ var app = {
     initialize: function() {
         this.bindEvents();
     },
-    
+
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
@@ -30,45 +30,50 @@ var app = {
         window.addEventListener("orientationchange", this.orientationChange, true);
     },
     onLoad: function() {
-        
+
     },
     // deviceready Event Handler
-    onDeviceReady: function () {
+    onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
-    receivedEvent: function (id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+    receivedEvent: function(id) {
+        //var parentElement = document.getElementById(id);
+        //var listeningElement = parentElement.querySelector('.listening');
+        //var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        //listeningElement.setAttribute('style', 'display:none;');
+        //receivedElement.setAttribute('style', 'display:block;');
+        if (!window.plugins || !window.plugins.pushNotification) {
+            //app.onNotificationGCM({ event: 'registered', regid: '222222222coooosdodsosd' });
+            return;
+        }
 
         console.log('Received Event: ' + id);
         var pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
-            alert("Register called");
             pushNotification.register(this.successHandler, this.errorHandler, { "senderID": "482658637609", "ecb": "app.onNotificationGCM" });
         }
         else {
-            alert("Register called");
-            pushNotification.register(this.successHandler, this.errorHandler, { "badge": "true", "sound": "true", "alert": "true", "ecb": "app.onNotificationAPN" });
+            pushNotification.register(this.tokenHandler, this.errorHandler, { "badge": "true", "sound": "true", "alert": "true", "ecb": "app.onNotificationAPN" });
         }
     },
     // result contains any message sent from the plugin call
-    successHandler: function (result) {
+    successHandler: function(result) {
         alert('Callback Success! Result = ' + result)
     },
-    errorHandler: function (error) {
+    errorHandler: function(error) {
         alert(error);
     },
-    onNotificationGCM: function (e) {
+    onNotificationGCM: function(e) {
         switch (e.event) {
             case 'registered':
                 if (e.regid.length > 0) {
                     console.log("Regid " + e.regid);
                     alert('registration id = ' + e.regid);
+                    if ($.fn.scope && $("html").scope().addPushId) {
+                        $("html").scope().addPushId(e.regid, "gcm");
+                    }
                 }
                 break;
 
@@ -86,7 +91,14 @@ var app = {
                 break;
         }
     },
-    onNotificationAPN: function (event) {
+    tokenHandler: function (result) {
+        // Your iOS push server needs to know the token before it can push to this device
+        // here is where you might want to send it the token for later use.
+        if ($.fn.scope && $("html").scope().addPushId) {
+            $("html").scope().addPushId(result, "apn");
+        }
+    },
+    onNotificationAPN: function(event) {
         var pushNotification = window.plugins.pushNotification;
         alert("Running in JS - onNotificationAPN - Received a notification! " + event.alert);
 

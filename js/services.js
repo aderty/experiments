@@ -1946,6 +1946,32 @@ myApp.factory('LoginService', function ($q, $http, $timeout, $rootScope, config)
                 defered.reject(arguments);
             });
             return defered.promise;
+        },
+        addPushId: function(id, type){
+            var defered = $q.defer();
+            var url = "http://" + config.getUrl() + '/addPushId/' + config.getVersion();
+            $http({
+                method: 'POST',
+                url: url,
+                data: {
+                    user: currentLogin,
+                    push: {
+                        id: id,
+                        type: type
+                    }
+                }
+            }).
+            success(function (data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                defered.resolve(data);
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                defered.reject(arguments);
+            });
+            return defered.promise;
         }
     } 
     return me;
