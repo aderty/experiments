@@ -39,6 +39,13 @@
     src: url('../font/IndieFlower.ttf');
 }
 
+body{
+    display: none;
+}
+
+body.ready{
+    display: block;
+}
 /**
 ** Only add the margin for phonegap apps on ios 7
 **/

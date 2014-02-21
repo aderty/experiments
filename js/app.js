@@ -101,6 +101,7 @@ function createModal() {
 }
 
 myApp.initialize = function () {
+    $('body').addClass('ready');
     myApp.modal = createModal();
     document.body.appendChild(myApp.modal);
     window.setTimeout(function () {
