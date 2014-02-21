@@ -868,10 +868,10 @@ myApp.factory('CahierService', function ($q, db, $timeout, $http, $filter, $root
             var defered = $q.defer();
             db.getInstance().objectStore("cahier").get(id).done(function (data) {
                 $timeout(function () {
-                    defered.resolve(data);
+                    defered.resolve(data, id);
                 });
             }).fail(function () {
-                defered.reject(null);
+                defered.reject(id);
             });
             return defered.promise;
         },
@@ -1050,8 +1050,14 @@ myApp.factory('CahierService', function ($q, db, $timeout, $http, $filter, $root
     if (localStorage["cahiersToSync"]) {
         toSync = JSON.parse(localStorage["cahiersToSync"]);
         for (var id in toSync) {
-            me.getById(id).then(function (cahier) {
-                me.sync(toSync[id], cahier);
+            me.getById(id).then(function (cahier, cahierid) {
+                if (cahier) {
+                    me.sync(toSync[cahier.id], cahier);
+                }
+                else {
+                    delete toSync[cahierid];
+                    localStorage["cahiersToSync"] = JSON.stringify(toSync);
+                }
             })
         }
     }

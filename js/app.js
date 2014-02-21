@@ -38,6 +38,9 @@ function isPhonegap() {
 function isIOS() {
     return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
 }
+function isAndroid() {
+    return navigator.userAgent.match(/Android/i);
+}
 
 document.addEventListener('deviceready', function () {
     // window.device is available only if you include the phonegap package
