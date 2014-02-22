@@ -34,24 +34,37 @@ myApp.factory('phonegapReady', function () {
     };
 });
 
-myApp.factory('backbutton', function () {
-    var queue = [];
+myApp.factory('Device', function ($location, phonegapReady) {
+    var queue = {
+        backbutton: {},
+        resume: {}
+    }, path;
     document.addEventListener("backbutton", onBackKeyDown, false);
+    document.addEventListener("resume", onResume, false);
+
     //navigator.app.overrideBackbutton(true);
     function onBackKeyDown(e) {
-        queue.forEach(function (args) {
-            fn.apply(this, args);
-        });
+        path = $location.path();
+        if (queue.backbutton[path]) {
+            queue.backbutton[path].apply(this, arguments);
+        }
+    }
+    function onResume(e) {
+        path = $location.path();
+        if (queue.resume[path]) {
+            queue.resume[path].apply(this, arguments);
+        }
     }
 
     return {
-        onBackButton: phonegapReady(function (callback) {
-            queue.push(callback);
+        onBackbutton: phonegapReady(function (callback) {
+            queue.backbutton[$location.path()] = callback;
+        }),
+        onResume: phonegapReady(function (callback) {
+            queue.resume[$location.path()] = callback;
         })
     };
 });
-
-
 
 myApp.factory('geolocation', function ($rootScope, phonegapReady) {
   return {

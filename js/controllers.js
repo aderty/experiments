@@ -689,7 +689,7 @@ function CahierUsersCtrl($scope, navSvc, EnfantService, LoginService, notificati
     }
 }
 
-function EventDetailsCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, notification) {
+function EventDetailsCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, notification, Device) {
     $scope.currentEnfant = EnfantService.getCurrent();
     $scope.currentCahier = CahierService.getCurrent();
     $scope.event = EventService.getCurrent();
@@ -718,15 +718,11 @@ function EventDetailsCtrl($scope, $rootScope, navSvc, LoginService, EnfantServic
         navSvc.slidePage("/viewEvent");
     }
 
-    document.removeEventListener("backbutton", onBackKeyDown, false);
-    document.addEventListener("backbutton", onBackKeyDown, false);
-    //navigator.app.overrideBackbutton(true);
-    function onBackKeyDown(e) {
-        document.removeEventListener("backbutton", onBackKeyDown, false);
+    Device.onBackbutton(function (e) {
         if ($scope.inShowPhotosMode) {
             Code.PhotoSwipe.Current.hide();
         }
-    }
+    });
 
     $scope.inShowPhotosMode = false;
     $scope.showPhotos = function () {
@@ -758,7 +754,7 @@ function EventDetailsCtrl($scope, $rootScope, navSvc, LoginService, EnfantServic
 
 
 
-function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, db, notification) {
+function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, db, notification, Device) {
     $rootScope.showEnfantOverlay = false;
     $scope.event = EventService.getCurrent();
     $scope.showPhotoMenu = false;
@@ -1096,11 +1092,8 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
             navSvc.back();
         }
     }
-    document.removeEventListener("backbutton", onBackKeyDown, false);
-    document.addEventListener("backbutton", onBackKeyDown, false);
-    //navigator.app.overrideBackbutton(true);
-    function onBackKeyDown(e) {
-        document.removeEventListener("backbutton", onBackKeyDown, false);
+
+    Device.onBackbutton(function (e) {
         notification.confirm("Voullez-vous sauvegarder l'évènement avant de quitter ?", function (confirm) {
             if (confirm != 1) return;
             $scope.add($scope.event, true);
@@ -1108,10 +1101,7 @@ function EventCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, Cahi
         if ($scope.inShowPhotosMode) {
             Code.PhotoSwipe.Current.hide();
         }
-        //e.preventDefault();
-        // navigator.app.exitApp();
-        //return false;
-    }
+    });
 
     $scope.cancel = function () {
         if (!$scope.event.creation) {
