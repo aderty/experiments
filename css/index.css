@@ -2086,14 +2086,19 @@ width:100%;
 height:100%;
 }
 
-.escapingBallG{
-font-size: 4rem;
-text-indent: -7rem;
+#escapingBallG > span{
+position:absolute;
+top: 50%;
+text-align: center;
+font-size: 3rem;
+width: 100%
+}
 
+.escapingBallG{
 background-color:#A3B84F;
 position:absolute;
 top: 50%;
-margin-top: -45px;
+margin-top: -55px;
 left:0;
 width:75px;
 height:75px;

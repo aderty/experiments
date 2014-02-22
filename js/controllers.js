@@ -139,16 +139,11 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
             LoginService.addPushId(id, type);
         }
         $rootScope.viewCahier = function (enfant, date) {
-            alert(enfant);
             $rootScope.currentDate = new Date(date);
-            alert($rootScope.currentDate);
             CahierService.setCurrent(null);
-            alert("list");
             EnfantService.list().then(function (dbEnfants) {
-                alert("list ok");
                 dbEnfants.forEach(function (enf) {
                     if (enf.id != enfant) return;
-                    alert("ok");
                     EnfantService.setCurrent(enf);
                     navSvc.slidePage('/viewCahier');
                 });
