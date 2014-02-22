@@ -67,7 +67,6 @@ var app = {
         alert(error);
     },
     onNotificationGCM: function (e) {
-        alert(JSON.stringify(e));
         switch (e.event) {
             case 'registered':
                 if (e.regid.length > 0) {
@@ -80,7 +79,7 @@ var app = {
 
             case 'message':
                 // this is the actual push notification. its format depends on the data model from the push server
-                alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt + '->' + JSON.stringify(e.payload));
+                //alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt + '->' + JSON.stringify(e.payload));
                 //alert('date = ' + e.payload.date);
                 //alert('cahier = ' + e.payload.cahier);
                 if ($.fn.scope && $("html").scope().viewCahier) {
