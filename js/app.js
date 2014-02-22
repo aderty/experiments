@@ -101,7 +101,6 @@ function createModal() {
 }
 
 myApp.initialize = function () {
-    $('body').addClass('ready');
     myApp.modal = createModal();
     document.body.appendChild(myApp.modal);
     window.setTimeout(function () {
@@ -146,10 +145,8 @@ myApp.initDB = function() {
     }).then(function() {
         // Once the DB is opened with the object stores set up, show data from all tables
         window.setTimeout(function() {
-            //loadFromDB("cart");
-            //loadFromDB("wishlist");
-            //downloadCatalog();
-            $("html").addClass("ready");
+            $('body').addClass('ready');
+            $(document.getElementById('escapingBallG')).remove();
             document.body.removeChild(myApp.modal);
             angular.bootstrap(document, ['myApp']);
         }, 200);
