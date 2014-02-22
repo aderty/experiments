@@ -52,6 +52,7 @@ var app = {
         console.log('Received Event: ' + id);
         var pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
+            alert("pushNotification");
             pushNotification.register(this.successHandler, this.errorHandler, { "senderID": "482658637609", "ecb": "app.onNotificationGCM" });
         }
         else {
@@ -65,7 +66,8 @@ var app = {
     errorHandler: function(error) {
         alert(error);
     },
-    onNotificationGCM: function(e) {
+    onNotificationGCM: function (e) {
+        alert(JSON.stringify(e));
         switch (e.event) {
             case 'registered':
                 if (e.regid.length > 0) {
