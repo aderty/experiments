@@ -138,6 +138,17 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
         $rootScope.addPushId = function(id, type){
             LoginService.addPushId(id, type);
         }
+        $rootScope.viewCahier = function (enfant, date) {
+            $rootScope.currentDate = new Date(moment(date).toDate().getTime());
+            CahierService.setCurrent(null);
+            EnfantService.list().then(function (dbEnfants) {
+                dbEnfants.forEach(function (enf) {
+                    if (enf.id != enfant) return;
+                    EnfantService.setCurrent(enf);
+                    navSvc.slidePage('/viewCahier');
+                });
+            });
+        }
         
         $rootScope.isConnected = true;
         $rootScope.$on('synced', function (e) {

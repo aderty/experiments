@@ -93,16 +93,8 @@ if (myApp.isPhone) {
       }
 }
 
-function createModal() {
-    var modal = document.createElement("div");
-    modal.innerHTML = "<span>Chargement...<span><input />";
-    modal.classList.add("loading-modal");
-    return modal;
-}
-
 myApp.initialize = function () {
-    myApp.modal = createModal();
-    document.body.appendChild(myApp.modal);
+    myApp.modal = document.getElementById('escapingBallG');
     window.setTimeout(function () {
         myApp.initDB();
     }, 150);
@@ -145,9 +137,8 @@ myApp.initDB = function() {
     }).then(function() {
         // Once the DB is opened with the object stores set up, show data from all tables
         window.setTimeout(function() {
-            $('body').addClass('ready');
-            $(document.getElementById('escapingBallG')).remove();
-            document.body.removeChild(myApp.modal);
+            // $('body').addClass('ready');
+            // document.body.removeChild(myApp.modal);
             angular.bootstrap(document, ['myApp']);
         }, 200);
         window.onerror = function(e, f, l) {
