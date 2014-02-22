@@ -140,7 +140,7 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
         }
         $rootScope.viewCahier = function (enfant, date) {
             alert(enfant);
-            $rootScope.currentDate = new Date(date);
+            /*$rootScope.currentDate = new Date(date);
             alert($rootScope.currentDate);
             CahierService.setCurrent(null);
             alert("list");
@@ -152,7 +152,7 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
                     EnfantService.setCurrent(enf);
                     navSvc.slidePage('/viewCahier');
                 });
-            });
+            });*/
         }
         
         $rootScope.isConnected = true;
