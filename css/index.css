@@ -2096,12 +2096,14 @@ width: 100%
 
 .escapingBallG{
 background-color:#A3B84F;
+background-image: url('../img/icon.png');
+background-position: -26px -16px;
 position:absolute;
 top: 50%;
-margin-top: -55px;
+margin-top: -75px;
 left:0;
-width:75px;
-height:75px;
+width:100px;
+height:100px;
 -moz-border-radius:38px;
 -moz-animation-name:bounce_escapingBallG;
 -moz-animation-duration:2s;
