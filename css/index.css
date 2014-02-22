@@ -567,8 +567,11 @@ select.field-input {
 }
 
 #eventForm pre{
+    margin: 0;
     padding: 1rem;
     text-align: left;
+    width: 95%;
+    word-break: break-word;
 }
 
 #zonearea .modal {

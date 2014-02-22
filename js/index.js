@@ -60,10 +60,10 @@ var app = {
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
-        alert('Callback Success! Result = ' + result)
+        console.log('Callback Success! Result = ' + result)
     },
     errorHandler: function(error) {
-        alert(error);
+        console.log(error);
     },
     onNotificationGCM: function (e) {
         switch (e.event) {
@@ -104,17 +104,20 @@ var app = {
     },
     onNotificationAPN: function(event) {
         var pushNotification = window.plugins.pushNotification;
-        alert("Running in JS - onNotificationAPN - Received a notification! " + event.alert);
-
+        if (event.cahier) {
+            if ($.fn.scope && $("html").scope().viewCahier) {
+                $("html").scope().viewCahier(event.cahier, event.date);
+            }
+        }
         if (event.alert) {
-            navigator.notification.alert(event.alert);
+            //navigator.notification.alert(event.alert);
         }
         if (event.badge) {
             pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
         }
-        if (event.sound) {
+        /*if (event.sound) {
             var snd = new Media(event.sound);
             snd.play();
-        }
+        }*/
     }
 };
