@@ -79,8 +79,8 @@ var app = {
             case 'message':
                 // this is the actual push notification. its format depends on the data model from the push server
                 //alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt + '->' + JSON.stringify(e.payload));
-                //alert('date = ' + e.payload.date);
-                //alert('cahier = ' + e.payload.cahier);
+                alert('date = ' + e.payload.date);
+                alert('cahier = ' + e.payload.cahier);
                 $("html").scope().viewCahier(e.payload.cahier, e.payload.date);
                 break;
 

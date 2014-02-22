@@ -130,7 +130,7 @@ myApp.run(["$rootScope", "$timeout", function ($rootScope, $timeout) {
 
 }]);
 
-myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "LoginService", "EnfantService", "DropBoxService", function ($rootScope, phonegapReady, $timeout, config, navSvc, LoginService, EnfantService, DropBoxService) {
+myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "LoginService", "EnfantService", "CahierService", "DropBoxService", function ($rootScope, phonegapReady, $timeout, config, navSvc, LoginService, EnfantService, CahierService, DropBoxService) {
     $rootScope.isConnected = false;
     $rootScope.user = LoginService.load();
     if ($rootScope.user) {
@@ -145,9 +145,8 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
             CahierService.setCurrent(null);
             alert("list");
             EnfantService.list().then(function (dbEnfants) {
-                alert("list");
+                alert("list ok");
                 dbEnfants.forEach(function (enf) {
-                    alert(enf.id);
                     if (enf.id != enfant) return;
                     alert("ok");
                     EnfantService.setCurrent(enf);
