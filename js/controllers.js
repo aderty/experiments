@@ -141,7 +141,7 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
         $rootScope.viewCahier = function (enfant, date) {
             $rootScope.currentDate = new Date(date);
             CahierService.setCurrent(null);
-            alert($rootScope.currentDate);
+            alert(enfant);
             EnfantService.list().then(function (dbEnfants) {
                 alert("list");
                 dbEnfants.forEach(function (enf) {
