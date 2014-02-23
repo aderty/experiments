@@ -58,9 +58,9 @@ myApp.factory('Device', function ($rootScope, $location) {
         }
     }
 
-    $rootScope.$on("$routeChangeSuccess", function (event, current, previous, rejection) {
-        current = current.originalPath;
-        previous = previous.originalPath;
+    $rootScope.$on("$routeChangeSuccess", function (event, cur, prev, rejection) {
+        current = cur.originalPath;
+        previous = prev.originalPath;
         /*setTimeout(function () {
             previous = null;
         }, 1000);*/
@@ -68,7 +68,6 @@ myApp.factory('Device', function ($rootScope, $location) {
 
     return {
         onBackbutton: function (callback) {
-            alert($location.path());
             queue.backbutton[$location.path()] = callback;
         },
         onResume: function (callback) {
