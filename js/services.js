@@ -40,11 +40,8 @@ myApp.factory('Device', function ($location, phonegapReady) {
         resume: {}
     }, path;
 
-    phonegapReady(function () {
-        alert("ready");
-        document.addEventListener("backbutton", onBackKeyDown, false);
-        document.addEventListener("resume", onResume, false);
-    });
+    document.addEventListener("backbutton", onBackKeyDown, false);
+    document.addEventListener("resume", onResume, false);
 
     //navigator.app.overrideBackbutton(true);
     function onBackKeyDown(e) {
