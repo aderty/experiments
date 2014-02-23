@@ -46,6 +46,7 @@ myApp.factory('Device', function ($rootScope, $location) {
     //navigator.app.overrideBackbutton(true);
     function onBackKeyDown(e) {
         path = $location.path();
+        alert(previous);
         if (previous && queue.backbutton[previous]) {
             queue.backbutton[previous].apply(this, arguments);
         }
@@ -60,13 +61,14 @@ myApp.factory('Device', function ($rootScope, $location) {
     $rootScope.$on("$routeChangeSuccess", function (event, current, previous, rejection) {
         current = current.originalPath;
         previous = previous.originalPath;
-        setTimeout(function () {
+        /*setTimeout(function () {
             previous = null;
-        }, 1000);
+        }, 1000);*/
     });
 
     return {
         onBackbutton: function (callback) {
+            alert($location.path());
             queue.backbutton[$location.path()] = callback;
         },
         onResume: function (callback) {
