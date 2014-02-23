@@ -400,7 +400,7 @@ function LoginCtrl($scope, navSvc, $rootScope, $timeout, LoginService, EnfantSer
     };
 }
 
-function CahierJourCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, $filter, notification) {
+function CahierJourCtrl($scope, $rootScope, navSvc, LoginService, EnfantService, CahierService, EventService, $timeout, $filter, notification, Device) {
     $scope.loaded = true;
     $scope.sending = false;
     $scope.showSmiley = false;
@@ -471,6 +471,7 @@ function CahierJourCtrl($scope, $rootScope, navSvc, LoginService, EnfantService,
     }
 
     EnfantService.onChange(loadCahier);
+    Device.onResume(loadCahier);
 
     $scope.$on('$destroy', function () {
         EnfantService.removeOnChange(loadCahier);
