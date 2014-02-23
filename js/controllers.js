@@ -720,7 +720,6 @@ function EventDetailsCtrl($scope, $rootScope, navSvc, LoginService, EnfantServic
     }
 
     Device.onBackbutton(function (e) {
-        alert('back');
         if ($scope.inShowPhotosMode) {
             Code.PhotoSwipe.Current.hide();
         }

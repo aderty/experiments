@@ -46,7 +46,6 @@ myApp.factory('Device', function ($rootScope, $location) {
     //navigator.app.overrideBackbutton(true);
     function onBackKeyDown(e) {
         path = $location.path();
-        alert(previous);
         if (previous && queue.backbutton[previous]) {
             queue.backbutton[previous].apply(this, arguments);
         }
