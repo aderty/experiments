@@ -39,11 +39,16 @@ myApp.factory('Device', function ($location, phonegapReady) {
         backbutton: {},
         resume: {}
     }, path;
-    document.addEventListener("backbutton", onBackKeyDown, false);
-    document.addEventListener("resume", onResume, false);
+
+    phonegapReady(function () {
+        alert("ready");
+        document.addEventListener("backbutton", onBackKeyDown, false);
+        document.addEventListener("resume", onResume, false);
+    });
 
     //navigator.app.overrideBackbutton(true);
     function onBackKeyDown(e) {
+        alert("bb");
         path = $location.path();
         if (queue.backbutton[path]) {
             queue.backbutton[path].apply(this, arguments);
@@ -57,12 +62,12 @@ myApp.factory('Device', function ($location, phonegapReady) {
     }
 
     return {
-        onBackbutton: phonegapReady(function (callback) {
+        onBackbutton: function (callback) {
             queue.backbutton[$location.path()] = callback;
-        }),
-        onResume: phonegapReady(function (callback) {
+        },
+        onResume: function (callback) {
             queue.resume[$location.path()] = callback;
-        })
+        }
     };
 });
 
