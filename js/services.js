@@ -2027,7 +2027,6 @@ myApp.factory('LoginService', function ($q, $http, $timeout, $rootScope, config)
                 data: {
                     user: currentLogin,
                     cahier: cahier._id,
-                    prenom: cahier.prenom,
                     event: event
                 }
             }).
