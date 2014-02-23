@@ -45,8 +45,8 @@ myApp.factory('Device', function ($location, phonegapReady) {
 
     //navigator.app.overrideBackbutton(true);
     function onBackKeyDown(e) {
-        alert("bb");
         path = $location.path();
+        alert(path);
         if (queue.backbutton[path]) {
             queue.backbutton[path].apply(this, arguments);
         }
@@ -60,6 +60,7 @@ myApp.factory('Device', function ($location, phonegapReady) {
 
     return {
         onBackbutton: function (callback) {
+            alert($location.path());
             queue.backbutton[$location.path()] = callback;
         },
         onResume: function (callback) {
