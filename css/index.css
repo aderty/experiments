@@ -711,6 +711,10 @@ select.field-input {
     display: none;
 }
 
+.topcoat-navigation-bar {
+    padding-left: 0.1rem;
+}
+
 .btn-cancel
 {
 	background-color: rgb(221, 96, 91);

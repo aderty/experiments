@@ -137,8 +137,6 @@ myApp.initDB = function() {
     }).then(function() {
         // Once the DB is opened with the object stores set up, show data from all tables
         window.setTimeout(function() {
-            $('body').addClass('ready');
-            document.body.removeChild(myApp.modal);
             angular.bootstrap(document, ['myApp']);
         }, 200);
         window.onerror = function(e, f, l) {
@@ -148,6 +146,10 @@ myApp.initDB = function() {
     }, function() {
         alert("Looks like an error occured " + JSON.stringify(arguments))
     });
+}
+myApp.ready = function () {
+    $('body').addClass('ready');
+    document.body.removeChild(myApp.modal);
 }
 
 myApp.deleteDB = function(){

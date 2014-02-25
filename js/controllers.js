@@ -6,6 +6,9 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
         $rootScope.ready = true;
     });
     setTimeout(function () {
+        myApp.ready();
+    }, 150);
+    setTimeout(function () {
         config.init().then(function () {
             $rootScope.$emit('initialized');
         });
