@@ -2100,13 +2100,14 @@ width: 100%
 .escapingBallG{
 background-color:#A3B84F;
 background-image: url('../img/icon.png');
-background-position: -26px -16px;
+background-position: 0px 0px;
 position:absolute;
 top: 50%;
-margin-top: -75px;
-left:0;
-width:100px;
-height:100px;
+margin-top: -150px;
+left:50%;
+margin-left: -76px;
+width:152px;
+height:152px;
 -moz-border-radius:38px;
 -moz-animation-name:bounce_escapingBallG;
 -moz-animation-duration:2s;
@@ -2135,7 +2136,7 @@ height:100px;
 -o-animation-timing-function:linear;
 -o-animation-delay:0s;
 -o-transform:scale(0.5, 1);
-border-radius:38px;
+border-radius:100%;
 animation-name:bounce_escapingBallG;
 animation-duration:2s;
 animation-iteration-count:infinite;
@@ -2146,27 +2147,22 @@ transform:scale(0.5, 1);
 
 @-moz-keyframes bounce_escapingBallG{
 0%{
-left:5%;
 -moz-transform:scale(0.5, 1);
 }
 
 25%{
-left:50%;
 -moz-transform:scale(1, 0.5);
 }
 
 50%{
-left:calc(95% - 75px);
 -moz-transform:scale(0.5, 1);
 }
 
 75%{
-left:50%;
 -moz-transform:scale(1, 0.5);
 }
 
 100%{
-left:5%;
 -moz-transform:scale(0.5, 1);
 }
 
@@ -2174,27 +2170,27 @@ left:5%;
 
 @-webkit-keyframes bounce_escapingBallG{
 0%{
-left:5%;
+/*left:5%;*/
 -webkit-transform:scale(0.5, 1);
 }
 
 25%{
-left:50%;
+/*left:50%;*/
 -webkit-transform:scale(1, 0.5);
 }
 
 50%{
-left:calc(95% - 75px);
+/*left:calc(95% - 75px);*/
 -webkit-transform:scale(0.5, 1);
 }
 
 75%{
-left:50%;
+/*left:50%;*/
 -webkit-transform:scale(1, 0.5);
 }
 
 100%{
-left:5%;
+/*left:5%;*/
 -webkit-transform:scale(0.5, 1);
 }
 
@@ -2202,27 +2198,22 @@ left:5%;
 
 @-ms-keyframes bounce_escapingBallG{
 0%{
-left:5%;
 -ms-transform:scale(0.5, 1);
 }
 
 25%{
-left:50%;
 -ms-transform:scale(1, 0.5);
 }
 
 50%{
-left:calc(95% - 75px);
 -ms-transform:scale(0.5, 1);
 }
 
 75%{
-left:50%;
 -ms-transform:scale(1, 0.5);
 }
 
 100%{
-left:5%;
 -ms-transform:scale(0.5, 1);
 }
 
@@ -2230,27 +2221,22 @@ left:5%;
 
 @-o-keyframes bounce_escapingBallG{
 0%{
-left:5%;
 -o-transform:scale(0.5, 1);
 }
 
 25%{
-left:50%;
 -o-transform:scale(1, 0.5);
 }
 
 50%{
-left:calc(95% - 75px);
 -o-transform:scale(0.5, 1);
 }
 
 75%{
-left:50%;
 -o-transform:scale(1, 0.5);
 }
 
 100%{
-left:5%;
 -o-transform:scale(0.5, 1);
 }
 
@@ -2258,27 +2244,22 @@ left:5%;
 
 @keyframes bounce_escapingBallG{
 0%{
-left:5%;
 transform:scale(0.5, 1);
 }
 
 25%{
-left:50%;
 transform:scale(1, 0.5);
 }
 
 50%{
-left:calc(95% - 75px);
 transform:scale(0.5, 1);
 }
 
 75%{
-left:50%;
 transform:scale(1, 0.5);
 }
 
 100%{
-left:5%;
 transform:scale(0.5, 1);
 }
 
