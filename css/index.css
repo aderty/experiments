@@ -130,6 +130,18 @@ html, body {
     height: 100%;
 }
 
+.half{
+    width: 70%;
+}
+
+.quarter{
+    width: 15%;
+}
+
+.topcoat-button-bar__button, .topcoat-button-bar__button--large {
+    padding: 0;
+}
+
 .loading-modal {
     background-color: #000;
     opacity:0.7;
