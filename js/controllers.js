@@ -15,6 +15,13 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
         navSvc.slidePage(path, type);
     };
 
+    $rootScope.$on('$routeChangeStart', function (scope, next, current) {
+        $(document.body).addClass('inTransition');
+    });
+    $rootScope.$on('$routeChangeSuccess', function (scope, next, current) {
+        $(document.body).removeClass('inTransition');
+    });
+
     var date = new Date();
     $rootScope.currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     $rootScope.isCurrentDate = function () {

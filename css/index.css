@@ -707,6 +707,9 @@ select.field-input {
 .ready .snap-drawers {
     display: block;
 }
+.ready.inTransition .snap-drawers{
+    display: none;
+}
 
 .btn-cancel
 {
