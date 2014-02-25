@@ -6,9 +6,6 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
         $rootScope.ready = true;
     });
     setTimeout(function () {
-        myApp.ready();
-    }, 150);
-    setTimeout(function () {
         config.init().then(function () {
             $rootScope.$emit('initialized');
         });
@@ -17,6 +14,10 @@ myApp.run(["$rootScope", "phonegapReady", "$timeout", "config", "navSvc", "Login
     $rootScope.slidePage = function (path, type) {
         navSvc.slidePage(path, type);
     };
+
+    $timeout(function () {
+        myApp.ready();
+    }, 150);
 
     $rootScope.$on('$routeChangeStart', function (scope, next, current) {
         $(document.body).addClass('inTransition');

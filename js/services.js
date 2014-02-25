@@ -812,7 +812,12 @@ myApp.factory('CahierService', function ($q, db, $timeout, $http, $filter, $root
                         return me.sync(enfant, data);
                     }
                     // Cas des cahiers présents en local + serveur -> Synchronisation des évènements
-                    var found,picFound, changed = false, needServerSync = false, remoteEvt ,localEvt;
+                    var found, picFound, changed = false, needServerSync = false, remoteEvt, localEvt;
+                    if (!angular.equals(data.humeur, cahier.humeur)){
+                        data.humeur = cahier.humeur;
+                        changed = true;
+                    }
+                    
                     // Parcours des évènements du serveur et recherche de leur présence sur ceux en local.
                     angular.forEach(cahier.events, function(remoteEvt, key){
                         remoteEvt.tick = moment(remoteEvt.tick).toDate();
