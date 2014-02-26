@@ -138,8 +138,14 @@ html, body {
     width: 15%;
 }
 
-.topcoat-button-bar__button, .topcoat-button-bar__button--large {
+.topcoat-button-bar__button, .topcoat-button-bar__button--large, .topcoat-button--cta {
     padding: 0;
+    letter-spacing: 0;
+    box-shadow: none;
+    border: none; 
+}
+.topcoat-button-bar__button, .topcoat-button-bar__button--large {
+    background-color: #DDDDDD;
 }
 
 .loading-modal {
@@ -252,6 +258,11 @@ li.loading span {
     float: right;
     -webkit-border-radius: 1.0rem;
 	border-radius: 1.0rem;
+    border: none;
+    padding: 0.75rem;
+    position: absolute;
+    right: 0.5rem;
+    margin-top: -0.65rem;
 }
 
 .field .topcoat-icon-button--quiet{
@@ -757,6 +768,9 @@ select.field-input {
 .humeur {
     padding-right: 0.5rem;
 }
+#pge-details .humeur {
+    padding-top: 0.3rem;
+}
 .humeur button {
     padding: 0;
     background: rgba(199, 218, 226, 0.75);
@@ -960,7 +974,7 @@ h1 .li-thumb
 	max-width: 2.5rem;
 	margin-bottom: -1rem;
 	margin-right: 1rem;
-    border-radius: 6px;
+    border-radius: 100%;
 	left:auto;
 }
 
@@ -1162,7 +1176,9 @@ nav.navigation h4 > i{
     -webkit-box-align: center;
     -ms-flex-align: center;
     /*border-bottom: rgb(221, 213, 36) 8px solid;*/
-    background-color: rgb(215, 230, 248);
+    /*background-color: rgb(215, 230, 248);*/
+    background-color: rgb(236, 235, 235);
+    /*background: -webkit-gradient( linear, left top, left bottom, color-stop(0, rgb(127, 131, 136)), color-stop(0, rgb(236, 235, 235)),color-stop(0.93, rgb(156, 165, 165)),color-stop(1, rgb(117, 122, 122)));*/
 }
 
 #pge-events .status .date-events,
@@ -1219,8 +1235,13 @@ nav.navigation h4 > i{
         background: -webkit-gradient( linear, left top, left bottom, from(rgb(74, 146, 68)), to(rgb(225, 243, 222)));*/
         /*background-color: rgb(238, 238, 238);
         background: -webkit-gradient( linear, left top, left bottom, color-stop(0, rgb(145, 145, 145)), color-stop(0.5, rgb(207, 214, 206)),color-stop(0.5, rgb(221, 217, 217)),color-stop(1, rgb(236, 236, 236)));*/
-        background-color: rgb(193, 227, 250);
-        background: -webkit-gradient( linear, left top, left bottom, color-stop(0, rgb(74, 144, 248)), color-stop(0.5, rgb(201, 230, 246)),color-stop(0.5, rgb(193, 227, 250)),color-stop(1, rgb(215, 230, 248)));
+        
+        /* 25/02/2014 : 
+            background-color: rgb(193, 227, 250);
+            background: -webkit-gradient( linear, left top, left bottom, color-stop(0, rgb(74, 144, 248)), color-stop(0.5, rgb(201, 230, 246)),color-stop(0.5, rgb(193, 227, 250)),color-stop(1, rgb(215, 230, 248)));*/
+        background-color: rgb(236, 235, 235);
+        /*background: -webkit-gradient( linear, left top, left bottom, color-stop(0, rgb(127, 131, 136)), color-stop(0, rgb(236, 235, 235)),color-stop(0.93, rgb(156, 165, 165)),color-stop(1, rgb(117, 122, 122)));*/
+        /*background: -webkit-gradient( linear, left top, left bottom, color-stop(0, rgb(127, 131, 136)), color-stop(0, rgb(236, 235, 235)),color-stop(0.93, rgb(218, 218, 218)),color-stop(1, rgb(117, 122, 122)));*/
         box-shadow: none;
 }
 
