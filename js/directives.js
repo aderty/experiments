@@ -241,26 +241,37 @@ angular.module('myApp.directives', [])
             }
         };
     } ])
-    .directive('focusscroll', [function() {
+    .directive('focusscroll', [function () {
+        var resizeIt = function (value) {
+            var str = value;
+            var cols = this.cols;
+
+            var linecount = 0;
+            $(str.split("\n")).each(function () {
+                linecount += Math.ceil(this.length / cols); // take into account long lines
+            })
+            this.rows = linecount + 1;
+        };
         return {
             restrict: 'A',
             scope: false,
             replace: false,
             require: 'ngModel',
             link: function(scope, elm, attr, ngModel) {
-                elm.bind("focus", function(e) {
+                elm.bind("focus", function (e) {
                     var btnDone = "<button class='topcoat-button-bar__button full valid'><i class='topcoat-icon checkmark-icon'></i></button>";
                     var btnCancel = "<button class='topcoat-button-bar__button full btn-cancel cancel'><i class='topcoat-icon error-icon'></i></button>";
                     var tmpl = "<div id='zonearea'><div class='modal'></div><div class='saisiearea'><div class='textarea'><textarea id='saisiearea' rows='6' cols='36' placeholder=\"" + attr.placeholder + "\"/></div><div class='action'>" + btnDone + btnCancel + "</div></div></div>";
                     var input = $(tmpl);
-                    input.on('click', '.valid', function(e) {
+                    input.on('click', '.valid', function (e) {
                         ngModel.$setViewValue(document.getElementById('saisiearea').value);
-                        scope.$apply(function() {
+                        scope.$apply(function () {
                             elm.val(document.getElementById('saisiearea').value);
+                            resizeIt.call(elm[0], elm[0].value);
                         });
                         document.body.removeChild(document.getElementById('zonearea'));
                     });
-                    input.on('click', '.cancel', function(e) {
+                    input.on('click', '.cancel', function (e) {
                         document.body.removeChild(document.getElementById('zonearea'));
                     });
                     document.body.appendChild(input[0]);
@@ -270,6 +281,7 @@ angular.module('myApp.directives', [])
                     }
                     $(document.getElementById('saisiearea')).click().focus();
                 });
+                resizeIt.call(elm[0], scope.$eval(attr.ngModel));
             }
         };
     } ])

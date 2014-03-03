@@ -24,7 +24,7 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/viewEventDetails', { templateUrl: 'partials/detailsEventView.html', controller: 'EventDetailsCtrl' });
         $routeProvider.when('/viewEvent', { templateUrl: 'partials/newEventView.html', controller: 'EventCtrl' });
         $routeProvider.when('/viewPhotos', { templateUrl: 'partials/photoView.html', controller: 'PhotosEventCtrl' });
-        $routeProvider.when('/viewNewCahier', { templateUrl: 'partials/newCahier.html', controller: 'CahierCtrl' });
+        $routeProvider.when('/viewNewCahier', { templateUrl: 'partials/newCahier.html', controller: 'CahierCtrl', transition: 'modal' });
         $routeProvider.when('/viewAbout', { templateUrl: 'partials/aboutView.html' });
         $routeProvider.otherwise({redirectTo: '/'});
     } ]);
@@ -41,6 +41,12 @@ function isIOS() {
 function isAndroid() {
     return navigator.userAgent.match(/Android/i);
 }
+
+function getAndroidVersion(ua) {
+    var ua = ua || navigator.userAgent;
+    var match = ua.match(/Android\s([0-9\.]*)/);
+    return match ? match[1] : false;
+};
 
 document.addEventListener('deviceready', function () {
     // window.device is available only if you include the phonegap package
@@ -134,7 +140,11 @@ myApp.initDB = function() {
                 }, "idEnfant");
             }
         }
-    }).then(function() {
+    }).then(function () {
+        var version = getAndroidVersion();
+        if (navigator.userAgent.match(/Android/i) && (version.indexOf("4.0") > -1 || version.indexOf("4.1") > -1)) {
+            $(document.getElementById('view')).removeAttr('mobile-view').attr("ng-view", "");
+        }
         // Once the DB is opened with the object stores set up, show data from all tables
         window.setTimeout(function() {
             angular.bootstrap(document, ['myApp']);
